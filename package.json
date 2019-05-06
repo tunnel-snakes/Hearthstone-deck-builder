@@ -1,0 +1,28 @@
+{
+  "name": "hearthstone-deck-builder",
+  "version": "1.0.0",
+  "description": "This is the HearthStone deckbuilder mobile application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunnel-snakes/Hearthstone-deck-builder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tunnel-snakes/Hearthstone-deck-builder/issues"
+  },
+  "homepage": "https://github.com/tunnel-snakes/Hearthstone-deck-builder#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.19.0",
+    "pg": "^7.10.0",
+    "superagent": "^5.0.5"
+  }
+}
