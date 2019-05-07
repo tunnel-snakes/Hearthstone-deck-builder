@@ -95,6 +95,9 @@ function MakeCard(card) {
   this.img = card.img;
 }
 
+function saveCards() {
+}
+
 // bcrypt hash notation - use callback to store in DB
 
 // bcrypt.hash('password', saltRounds, function(err, hash) {
