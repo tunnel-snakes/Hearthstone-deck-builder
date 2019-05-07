@@ -72,11 +72,20 @@ function getCards(query) {
     .set("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
     .set("X-RapidAPI-Key", HEARTHSTONE_API_KEY)
     .then(data => {
-      data.body.Basic.forEach(card => {
-        if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
-          console.log(new MakeCard(card));
-        }
+      let cardSets = [];
+      Object.keys(data.body).forEach(cardSet => {
+        cardSets.push(cardSet);
       });
+      cardSets = cardSets.slice(0,19);
+      for(let i = 0; i < cardSets.length; i++) {
+        data.body[cardSets[i]].forEach(card => {
+          if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
+            console.log(new MakeCard(card));
+          } else {
+            // do nothing
+          }
+        });
+      }
     });
 }
 getCards('cards');
