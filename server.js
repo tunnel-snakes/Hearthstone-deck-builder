@@ -15,11 +15,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 app.get('/', function(req, res) {
-  res.render('login');
-});
-
-app.get('*', function(req, res) {
-  res.render('error');
+  res.render('pages/login');
 });
 
 app.get('/home', function(req, res) {
@@ -27,7 +23,7 @@ app.get('/home', function(req, res) {
 });
 
 app.get('/signUp', function(req, res) {
-  res.render('signUp');
+  res.render('pages/signUp');
 });
 
 app.get('/decks', function(req, res) {
@@ -42,9 +38,13 @@ app.get('/aboutUs', function(req, res) {
   res.render('aboutUs');
 });
 
-const client = new Client(process.env.DATABASE_URL);
-client.connect();
-client.on('error', error => console.log(error));
+app.get('*', function(req, res) {
+  res.status(404).send('404 not found');
+});
+
+// const client = new Client(process.env.DATABASE_URL);
+// client.connect();
+// client.on('error', error => console.log(error));
 
 // // create danny devito card
 // let SQL1 = `INSERT INTO cards (name, type, class, cost, img) VALUES($1, $2, $3, $4, $5)`;
