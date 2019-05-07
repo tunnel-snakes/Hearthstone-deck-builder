@@ -79,7 +79,7 @@ function getCards(query) {
       cardSets = cardSets.slice(0,19);
       for(let i = 0; i < cardSets.length; i++) {
         data.body[cardSets[i]].forEach(card => {
-          if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
+          if(card.type === 'Minion' && 'collectable' === true || card.type === 'Spell' && 'collectable' === true || card.type === 'Weapon' && 'collectable' === true) {
             console.log(new MakeCard(card));
           } else {
             // do nothing
