@@ -24,5 +24,11 @@ function handleError (error, response) {
   if(response) response.status(500).send('Something went wrong');
 }
 
+// bcrypt hash notation - use callback to store in DB
+
+// bcrypt.hash('password', saltRounds, function(err, hash) {
+//   console.log(hash);
+// });
+
 /* console log if server lives */ 
 app.listen(PORT, () => console.log(`IT LIVES!!! on ${PORT}`));
