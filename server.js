@@ -72,15 +72,30 @@ function getCards(query) {
     .set("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
     .set("X-RapidAPI-Key", HEARTHSTONE_API_KEY)
     .then(data => {
-      console.log(data.body);
+      data.body.Basic.forEach(card => {
+        if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
+          console.log(new MakeCard(card));
+        }
+      });
     });
 }
-getCards('info');
+getCards('cards');
 
 //Error
 function handleError (error, response) {
   console.log('error', error);
   if(response) response.status(500).send('Something went wrong');
+}
+
+function MakeCard(card) {
+  this.name = card.name;
+  this.type = card.type;
+  this.class = card.playerClass;
+  this.cost = card.cost;
+  this.img = card.img;
+}
+
+function saveCards() {
 }
 
 // bcrypt hash notation - use callback to store in DB
