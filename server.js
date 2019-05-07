@@ -14,6 +14,10 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', error => console.log(error));
+
 app.get('/', function(req, res) {
   res.render('pages/login');
 });
@@ -39,12 +43,8 @@ app.get('/aboutUs', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.status(404).send('404 not found');
+  res.render('pages/error');
 });
-
-const client = new Client(process.env.DATABASE_URL);
-client.connect();
-client.on('error', error => console.log(error));
 
 // // create danny devito card
 // let SQL1 = `INSERT INTO cards (name, type, class, cost, img) VALUES($1, $2, $3, $4, $5)`;
