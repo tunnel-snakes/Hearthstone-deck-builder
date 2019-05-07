@@ -74,7 +74,7 @@ function getCards(query) {
     .then(data => {
       data.body.Basic.forEach(card => {
         if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
-          console.log(new MakeCard(card));
+          saveCards(new MakeCard(card));
         }
       });
     });
@@ -95,7 +95,10 @@ function MakeCard(card) {
   this.img = card.img;
 }
 
-function saveCards() {
+function saveCards(input, response) {
+  const sql = `INSERT INTO cards (name, type, class, cost, img)
+                VALUES ($1, $2, $3, $4, $5)`;
+  client.query(sql, [input.name, input.type, input.class, input.cost, input.img]);
 }
 
 // bcrypt hash notation - use callback to store in DB
@@ -104,5 +107,5 @@ function saveCards() {
 //   console.log(hash);
 // });
 
-/* console log if server lives */ 
+/* console log if server lives */
 app.listen(PORT, () => console.log(`IT LIVES!!! on ${PORT}`));
