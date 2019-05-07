@@ -42,9 +42,9 @@ app.get('*', function(req, res) {
   res.status(404).send('404 not found');
 });
 
-// const client = new Client(process.env.DATABASE_URL);
-// client.connect();
-// client.on('error', error => console.log(error));
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', error => console.log(error));
 
 // // create danny devito card
 // let SQL1 = `INSERT INTO cards (name, type, class, cost, img) VALUES($1, $2, $3, $4, $5)`;
