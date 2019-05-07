@@ -7,6 +7,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
