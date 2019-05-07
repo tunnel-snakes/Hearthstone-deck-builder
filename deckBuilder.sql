@@ -9,7 +9,6 @@ CREATE TABLE decks (
   decksId SERIAL PRIMARY KEY,
   deckName VARCHAR(15),
   class VARCHAR(100),
-  userId INTEGER NOT NULL,
   FOREIGN KEY(userId) REFERENCES users(userId)
 );
 
@@ -23,9 +22,7 @@ CREATE TABLE cards (
 );
 
 CREATE TABLE decksCards (
-  decksId INTEGER NOT NULL,
-  FOREIGN KEY(decksId) REFERENCES decks(decksId),
-  cardsId INTEGER NOT NULL, 
+  FOREIGN KEY(decksId) REFERENCES decks(decksId), 
   FOREIGN KEY(cardsId) REFERENCES cards(cardsId)
 );
 
