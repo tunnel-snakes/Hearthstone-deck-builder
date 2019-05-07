@@ -42,7 +42,7 @@ function getCards(query) {
   let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/${query}`;
   superagent.get(url)
     .set("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
-    .set("X-RapidAPI-Key", "123765a9f2msh1e180d19f4b2613p146a0ejsnbbaf8bba9941")
+    .set("X-RapidAPI-Key", HEARTHSTONE_API_KEY)
     .then(data => {
       console.log(data.body);
     });
