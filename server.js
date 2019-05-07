@@ -51,10 +51,10 @@ client.on('error', error => console.log(error));
 // let values1 = ['Danny Devito', 'Minion', 'Warrior', 10, 'https://www.magnumdong.gov'];
 // client.query(SQL1, values1);
 
-// // create user
-// let SQL2 = `INSERT INTO users (userName, password) VALUES($1, $2)`;
-// let values2 = ['Ian Smith', 'password'];
-// client.query(SQL2, values2);
+// create user
+let SQL2 = 'INSERT INTO users (userName, password) VALUES($1, $2)';
+let values2 = ['Ian Smith', 'password'];
+client.query(SQL2, values2);
 
 // // create deck for user 1
 // let SQL3 = `INSERT INTO decks (deckName, class, userId) VALUES($1, $2, $3)`;
