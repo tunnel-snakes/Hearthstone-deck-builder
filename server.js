@@ -3,11 +3,14 @@
 require('dotenv').config();
 const superagent = require('superagent');
 const { Client } = require('pg');
-const express = require('express'),
-  app = express(),
-  PORT = process.env.PORT || 3000,
-  HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+const HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
 
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended: true}));
+app.use(express.static('./public'));
 
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
