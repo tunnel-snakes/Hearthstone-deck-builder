@@ -8,7 +8,7 @@ const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', error => console.log(error));
 
-
+/* this is our card object we can add more filters by adding more get functions if we have time */
 const cards = {
   getCardByClass : function(className) {
     let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/classes/${className}`;
@@ -33,6 +33,7 @@ const cards = {
         return validCards;
       });
   },
+  /* this is to save a single card to a deckId we still need to limit to 30 cards */
   saveCard : function(cardObject, deckId) {
     let sql1 = `INSERT INTO cards (name, type, class, cost, img, rarity)
                 VALUES ($1, $2, $3, $4 ,$5, $6)

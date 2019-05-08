@@ -18,8 +18,7 @@ const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', error => console.log(error));
 
-
-/**Pulls in everything cards are in cards.js**/
+/**Pulls in everything the const cards = in cards.js**/
 const cards = require('./cards.js');
 
 /********** ROUTES **********/
@@ -52,7 +51,7 @@ app.get('*', function(req, res) {
   res.render('pages/error');
 });
 
-/** This is how you reach the api call **/
+/** This is how you reach the api call we probably wont need to use but in case here it is **/
 app.get('/cards/classes/:className', function(req, res) {
   cards.getCardByClass(req.params.className)
     .then(result => res.send(JSON.stringify(result)));
@@ -62,12 +61,6 @@ app.get('/cards/classes/:className', function(req, res) {
 function handleError (error, response) {
   console.log('error', error);
   if(response) response.status(500).send('Something went wrong');
-}
-
-function saveCards(input, response) {
-  const sql = `INSERT INTO cards (name, type, class, cost, img)
-                VALUES ($1, $2, $3, $4, $5)`;
-  client.query(sql, [input.name, input.type, input.class, input.cost, input.img]);
 }
 
 /* console log if server lives */
