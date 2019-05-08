@@ -45,19 +45,21 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  cards.getCardByClass('Druid')
-    .then(function (cards) {
-      console.log(cards);
-      res.render('pages/builder', cards);
-    });
-
-//   res.render('pages/builder', {
-//     isReady: false,
-//     data: cards.getCardByClass
-//   });
-  
+  res.render('pages/builder', {
+    data: false
+  });
 });
 
+app.post('/builder/cards', function(req, res) {
+  console.log(req.body.class);
+  cards.getCardByClass(req.body.class)
+    .then(function (cards) {
+      console.log(cards);
+      res.render('pages/builder', {
+        data: cards
+      });
+    });
+});
 
 app.get('/aboutUs', function(req, res) {
   res.render('aboutUs');
@@ -114,7 +116,6 @@ app.post('/signUp', (req, res) => {
     }
   }});
 });
-
 
 //Error
 function handleError (error, response) {

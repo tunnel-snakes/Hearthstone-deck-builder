@@ -11,8 +11,9 @@
       <%- include ../partials/nav %>
   </header>
   <main>
-    <form>
+    <form method="POST" action="/builder/cards">
       <select name="class">
+        <option value="Neutral">Neutral</option>
         <option value="Druid">Druid</option>
         <option value="Hunter">Hunter</option>
         <option value="Mage">Mage</option>
@@ -23,15 +24,14 @@
         <option value="Warlock">Warlock</option>
         <option value="Warrior">Warrior</option>
         <option value="Death Knight">Death Knight</option>
-        <option value="Nuetral">Nuetral</option>
       </select>
       <input type="submit">
     </form>
     <section>
-      <% if(isReady) { %>
+      <% if(data) { %>
         <% data.forEach(card => { %>
-          <img src="<%= card.img %>">
-          <% }) %>
+        <img src="<%= card.img %>">
+        <% }) %>
       <% } else { %>
         <p>please select a class to display cards</p>
       <% } %>
