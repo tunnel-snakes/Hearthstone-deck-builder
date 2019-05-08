@@ -19,7 +19,7 @@ const cards = {
       .set('X-RapidAPI-Key', process.env.HEARTHSTONE_API_KEY)
       .then(data => {
         let validCards = [];
-        data.forEach(card => {
+        data.body.forEach(card => {
           if(card.hasOwnProperty('collectible') && card.collectible === true && (card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon')){
             let currentCard = {
               name : card.name,

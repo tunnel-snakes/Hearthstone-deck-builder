@@ -45,8 +45,14 @@ app.get('/decks', function(req, res) {
 
 app.get('/builder', function(req, res) {
   res.render('pages/builder', {
-    isReady: false,
-    data: cards.getCardByClass
+    data: false
+  });
+});
+
+app.post('/builder/cards', function(req, res) {
+  console.log(req.body.class);
+  res.send({
+    data: cards.getCardByClass(req.body.class)
   });
 });
 
