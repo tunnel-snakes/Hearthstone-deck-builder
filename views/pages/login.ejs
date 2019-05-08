@@ -7,7 +7,9 @@
   <title>Document</title>
 </head>
 <body>
-<div class="container">
+
+<form class="container" action="/login-submit">
+
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
 
@@ -15,12 +17,9 @@
     <input type="password" placeholder="Enter Password" name="psw" required>
 
     <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
 
-<a href="/signUp">Click Here</a>
+    <a href="/signUp">Click Here</a>
+</form>
 
 <%- include ../partials/footer %>
 </body>
