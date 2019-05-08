@@ -27,7 +27,9 @@ const cards = require('./cards.js');
 /********** ROUTES **********/
 
 app.get('/', function(req, res) {
-  res.render('pages/login');
+  res.render('pages/login', {
+    message: null
+  });
 });
 
 app.get('/home', function(req, res) {
@@ -48,6 +50,12 @@ app.get('/builder', function(req, res) {
       console.log(cards);
       res.render('pages/builder', cards);
     });
+
+//   res.render('pages/builder', {
+//     isReady: false,
+//     data: cards.getCardByClass
+//   });
+  
 });
 
 
@@ -57,6 +65,27 @@ app.get('/aboutUs', function(req, res) {
 
 app.get('*', function(req, res) {
   res.render('pages/error');
+});
+
+app.post('/home', function(req, res) {
+  let SQL = 'SELECT * FROM users WHERE username=$1';
+  let values = [req.body.uname];
+
+  client.query(SQL, values).then(result => {
+    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+      if(compareResult) {
+        console.log(true);
+        res.render('pages/home');
+      } else {
+        res.render('pages/login', {
+          message: 'fuck off, creep'
+        });
+      }
+    });
+    //console.log(result.rows[0]);
+  });
+
+  //console.log(req.body);
 });
 
 /** This is how you reach the api call we probably wont need to use but in case here it is **/
