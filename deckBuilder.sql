@@ -20,17 +20,20 @@ CREATE TABLE decks (
 
 CREATE TABLE cards (
   cardsId SERIAL PRIMARY KEY,
-  name VARCHAR(255),
+  name VARCHAR(255) NOT NULL UNIQUE,
   type VARCHAR(255),
   class VARCHAR(255),
   cost INTEGER NOT NULL,
-  img VARCHAR(255)
+  img VARCHAR(255),
+  rarity VARCHAR (200)
 );
 
 CREATE TABLE decksCards (
   decksId BIGINT,
   cardsId BIGINT,
+  quantity INTEGER,
   FOREIGN KEY (decksId) REFERENCES decks (decksId), 
-  FOREIGN KEY (cardsId) REFERENCES cards (cardsId)
+  FOREIGN KEY (cardsId) REFERENCES cards (cardsId),
+  UNIQUE (decksId, cardsId)
 );
 
