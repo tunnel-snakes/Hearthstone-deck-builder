@@ -50,28 +50,26 @@ app.get('/builder', function(req, res) {
   });
 });
 
+// Deck Builder card display and save -------------------------------------
+
 app.post('/builder/cards', function(req, res) {
-  console.log(req.body.class);
-  cards.getCardByClass(req.body.class)
-    .then(function (cards) {
-      res.render('pages/builder', {
-        data: cards
+  if(req.body.hasOwnProperty('name')) {
+    cards.saveCard(req.body, 1);
+    console.log('Card Saved');
+  } else {
+    console.log(req.body);
+    cards.getCardByClass(req.body.class)
+      .then(function (cards) {
+        res.render('pages/builder', {
+          data: cards
+        });
       });
-    });
+    console.log('Displaying Cards');
+  }
 });
 
 app.get('/aboutUs', function(req, res) {
   res.render('pages/aboutUs');
-});
-
-app.post('/save', function(req, res) {
-  console.log(req.body);
-  cards.getCardByClass(req.body.class)
-    .then(function (cards) {
-      res.render('pages/builder', {
-        data: cards
-      });
-    });
 });
 
 app.get('*', function(req, res) {
