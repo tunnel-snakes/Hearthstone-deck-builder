@@ -44,7 +44,10 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  res.render('builder');
+  res.render('pages/builder', {
+    isReady: false,
+    data: cards.getCardByClass
+  });
 });
 
 app.get('/aboutUs', function(req, res) {
