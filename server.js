@@ -41,7 +41,9 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  res.render('builder');
+  console.log(checkDatabase());
+  //console.log(results);
+  //res.render('builder', {data: results});
 });
 
 app.get('/aboutUs', function(req, res) {
@@ -51,6 +53,11 @@ app.get('/aboutUs', function(req, res) {
 app.get('*', function(req, res) {
   res.render('pages/error');
 });
+
+
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', error => console.log(error));
 
 app.post('/signUp', (req, res) => {
   let SQL = 'SELECT * FROM users WHERE userName=$1';
@@ -74,11 +81,6 @@ app.post('/signUp', (req, res) => {
 
 });
 
-
-// const client = new Client(process.env.DATABASE_URL);
-// client.connect();
-// client.on('error', error => console.log(error));
-
 // // create danny devito card
 // let SQL1 = `INSERT INTO cards (name, type, class, cost, img) VALUES($1, $2, $3, $4, $5)`;
 // let values1 = ['Danny Devito', 'Minion', 'Warrior', 10, 'https://www.magnumdong.gov'];
@@ -99,8 +101,12 @@ app.post('/signUp', (req, res) => {
 // let values4 = [1, 1];
 // client.query(SQL4, values4);
 
-function getCards(query) {
+async function getFromAPI(query) {
+  console.log('Getting data from API');
+
+  let results = [];
   let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/${query}`;
+
   superagent.get(url)
     .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
     .set('X-RapidAPI-Key', HEARTHSTONE_API_KEY)
@@ -114,16 +120,39 @@ function getCards(query) {
       for(let i = 0; i < cardSets.length; i++) {
         data.body[cardSets[i]].forEach(card => {
           if(card.type === 'Minion' && card.collectible === true || card.type === 'Spell' && card.collectible === true || card.type === 'Weapon' && card.collectible === true) {
-            console.log(new MakeCard(card));
+            let newCard = new MakeCard(card);
+            //saveCards(newCard);
+            results.push(newCard);
+            //console.log(results);
           } else {
             // do nothing
           }
         });
       }
     });
+    return results;
 }
-getCards('cards');
 
+
+function getFromDataBase() {
+  console.log('got stuff from db');
+}
+
+
+function checkDatabase() {
+  console.log('Checking database');
+  let SQL = 'SELECT * FROM cards;';
+  client.query(SQL)
+    .then(results => {
+      //return getFromAPI('cards');
+      if(results.rowCount > 0) {
+        console.log(getFromAPI('cards'));
+        //return getFromDataBase(results);
+      } else {
+        return getFromAPI('cards');
+      }
+    });
+}
 //Error
 function handleError (error, response) {
   console.log('error', error);
@@ -138,7 +167,7 @@ function MakeCard(card) {
   this.img = card.img;
 }
 
-function saveCards(input, response) {
+function saveCards(input) {
   const sql = `INSERT INTO cards (name, type, class, cost, img)
                 VALUES ($1, $2, $3, $4, $5)`;
   client.query(sql, [input.name, input.type, input.class, input.cost, input.img]);
