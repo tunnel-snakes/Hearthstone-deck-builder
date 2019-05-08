@@ -51,9 +51,13 @@ app.get('/builder', function(req, res) {
 
 app.post('/builder/cards', function(req, res) {
   console.log(req.body.class);
-  res.send({
-    data: cards.getCardByClass(req.body.class)
-  });
+  cards.getCardByClass(req.body.class)
+    .then(function (cards) {
+      console.log(cards);
+      res.render('pages/builder', {
+        data: cards
+      });
+    });
 });
 
 app.get('/aboutUs', function(req, res) {
