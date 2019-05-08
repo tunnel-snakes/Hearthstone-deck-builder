@@ -23,6 +23,7 @@ app.use(express.static('./public'));
 /**Pulls in everything the const cards = in cards.js**/
 const cards = require('./cards.js');
 
+
 /********** ROUTES **********/
 
 app.get('/', function(req, res) {
@@ -115,39 +116,6 @@ app.post('/signUp', (req, res) => {
     }
   }});
 });
-
-// async function getFromAPI(query) {
-//   console.log('Getting data from API');
-
-//   let results = [];
-//   let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/${query}`;
-
-//   superagent.get(url)
-//     .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
-//     .set('X-RapidAPI-Key', HEARTHSTONE_API_KEY)
-//     .then(data => {
-
-//       let cardSets = [];
-//       Object.keys(data.body).forEach(cardSet => {
-//         cardSets.push(cardSet);
-//       });
-//       cardSets = cardSets.slice(0,19);
-//       for(let i = 0; i < cardSets.length; i++) {
-//         data.body[cardSets[i]].forEach(card => {
-//           if(card.type === 'Minion' && card.collectible === true || card.type === 'Spell' && card.collectible === true || card.type === 'Weapon' && card.collectible === true) {
-//             let newCard = new MakeCard(card);
-//             //saveCards(newCard);
-//             results.push(newCard);
-//             //console.log(results);
-//           } else {
-//             // do nothing
-//           }
-//         });
-//       }
-//     });
-//     return results;
-// }
-
 
 //Error
 function handleError (error, response) {
