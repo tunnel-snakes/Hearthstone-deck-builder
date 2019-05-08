@@ -38,15 +38,15 @@ app.get('/signUp', function(req, res) {
 });
 
 app.get('/decks', function(req, res) {
-  res.render('decks');
+  res.render('pages/decks');
 });
 
 app.get('/builder', function(req, res) {
-  res.render('builder');
+  res.render('pages/builder');
 });
 
 app.get('/aboutUs', function(req, res) {
-  res.render('aboutUs');
+  res.render('pages/aboutUs');
 });
 
 app.get('*', function(req, res) {
