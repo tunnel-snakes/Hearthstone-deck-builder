@@ -8,6 +8,8 @@ const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', error => console.log(error));
 
+
+
 /* this is our card object we can add more filters by adding more get functions if we have time */
 const cards = {
   getCardByClass : function(className) {
@@ -63,19 +65,6 @@ const cards = {
 
 
 
-
-
 module.exports = cards;
-
-
-
-function Card(card) {
-  this.name = card.name;
-  this.type = card.type;
-  this.class = card.playerClass;
-  this.cost = card.cost;
-  this.img = card.img;
-
-}
 
 
