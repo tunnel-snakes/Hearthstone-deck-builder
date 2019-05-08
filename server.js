@@ -80,14 +80,11 @@ app.post('/home', function(req, res) {
         res.render('pages/home');
       } else {
         res.render('pages/login', {
-          message: 'fuck off, creep'
+          message: 'Some message'
         });
       }
     });
-    //console.log(result.rows[0]);
   });
-
-  //console.log(req.body);
 });
 
 /** This is how you reach the api call we probably wont need to use but in case here it is **/
