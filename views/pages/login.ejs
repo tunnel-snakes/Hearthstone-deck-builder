@@ -8,8 +8,13 @@
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
     <button type="submit">Login</button>
-    <a href="/signUp">Click Here</a>
 </form>
+
+<% if(message) { %>
+<p><%= message %></p>
+<% } %>
+  <a href="/signUp">Click Here</a>
+
 <%- include ../partials/footer %>
 </body>
 </html>

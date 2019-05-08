@@ -23,10 +23,13 @@ app.use(express.static('./public'));
 /**Pulls in everything the const cards = in cards.js**/
 const cards = require('./cards.js');
 
+
 /********** ROUTES **********/
 
 app.get('/', function(req, res) {
-  res.render('pages/login');
+  res.render('pages/login', {
+    message: null
+  });
 });
 
 app.get('/home', function(req, res) {
@@ -42,7 +45,20 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  res.render('pages/builder');
+  res.render('pages/builder', {
+    data: false
+  });
+});
+
+app.post('/builder/cards', function(req, res) {
+  console.log(req.body.class);
+  cards.getCardByClass(req.body.class)
+    .then(function (cards) {
+      console.log(cards);
+      res.render('pages/builder', {
+        data: cards
+      });
+    });
 });
 
 app.get('/aboutUs', function(req, res) {
@@ -51,6 +67,27 @@ app.get('/aboutUs', function(req, res) {
 
 app.get('*', function(req, res) {
   res.render('pages/error');
+});
+
+app.post('/home', function(req, res) {
+  let SQL = 'SELECT * FROM users WHERE username=$1';
+  let values = [req.body.uname];
+
+  client.query(SQL, values).then(result => {
+    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+      if(compareResult) {
+        console.log(true);
+        res.render('pages/home');
+      } else {
+        res.render('pages/login', {
+          message: 'fuck off, creep'
+        });
+      }
+    });
+    //console.log(result.rows[0]);
+  });
+
+  //console.log(req.body);
 });
 
 /** This is how you reach the api call we probably wont need to use but in case here it is **/
@@ -79,39 +116,6 @@ app.post('/signUp', (req, res) => {
     }
   }});
 });
-
-// async function getFromAPI(query) {
-//   console.log('Getting data from API');
-
-//   let results = [];
-//   let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/${query}`;
-
-//   superagent.get(url)
-//     .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
-//     .set('X-RapidAPI-Key', HEARTHSTONE_API_KEY)
-//     .then(data => {
-
-//       let cardSets = [];
-//       Object.keys(data.body).forEach(cardSet => {
-//         cardSets.push(cardSet);
-//       });
-//       cardSets = cardSets.slice(0,19);
-//       for(let i = 0; i < cardSets.length; i++) {
-//         data.body[cardSets[i]].forEach(card => {
-//           if(card.type === 'Minion' && card.collectible === true || card.type === 'Spell' && card.collectible === true || card.type === 'Weapon' && card.collectible === true) {
-//             let newCard = new MakeCard(card);
-//             //saveCards(newCard);
-//             results.push(newCard);
-//             //console.log(results);
-//           } else {
-//             // do nothing
-//           }
-//         });
-//       }
-//     });
-//     return results;
-// }
-
 
 //Error
 function handleError (error, response) {
