@@ -10,16 +10,26 @@ const HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', (error) => {
+  console.log(error);
+});
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
+
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', error => console.log(error));
 
 app.get('/', function(req, res) {
   res.render('pages/login');
 });
 
 app.get('/home', function(req, res) {
-  res.render('home');
+  res.render('pages/home');
 });
 
 app.get('/signUp', function(req, res) {
@@ -41,20 +51,43 @@ app.get('/aboutUs', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.status(404).send('404 not found');
+  res.render('pages/error');
 });
+
 
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', error => console.log(error));
+
+app.post('/signUp', (req, res) => {
+  let SQL = 'SELECT * FROM users WHERE userName=$1';
+  let values = [req.body.uname];
+
+  client.query(SQL, values).then(result => {{
+    if(!result.rows.length > 0){
+      bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
+        console.log(hash);
+        SQL = 'INSERT INTO users (userName, password) VALUES($1, $2)';
+        values = [req.body.uname, hash];
+        client.query(SQL, values).then(result => {
+          res.render('pages/home');
+        });
+      });
+    } else {
+      res.send('User exists');
+    }
+  }});
+
+
+});
 
 // // create danny devito card
 // let SQL1 = `INSERT INTO cards (name, type, class, cost, img) VALUES($1, $2, $3, $4, $5)`;
 // let values1 = ['Danny Devito', 'Minion', 'Warrior', 10, 'https://www.magnumdong.gov'];
 // client.query(SQL1, values1);
 
-// // create user
-// let SQL2 = `INSERT INTO users (userName, password) VALUES($1, $2)`;
+// create user
+// let SQL2 = "INSERT INTO users (userName, password) VALUES($1, $2)";
 // let values2 = ['Ian Smith', 'password'];
 // client.query(SQL2, values2);
 
@@ -74,12 +107,11 @@ async function getFromAPI(query) {
   let results = [];
   let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/${query}`;
 
-    superagent.get(url)
-    .set("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
-    .set("X-RapidAPI-Key", HEARTHSTONE_API_KEY)
+  superagent.get(url)
+    .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
+    .set('X-RapidAPI-Key', HEARTHSTONE_API_KEY)
     .then(data => {
-      console.log('hello');
-      
+
       let cardSets = [];
       Object.keys(data.body).forEach(cardSet => {
         cardSets.push(cardSet);
@@ -143,9 +175,6 @@ function saveCards(input) {
 
 // bcrypt hash notation - use callback to store in DB
 
-// bcrypt.hash('password', saltRounds, function(err, hash) {
-//   console.log(hash);
-// });
 
 /* console log if server lives */
 app.listen(PORT, () => console.log(`IT LIVES!!! on ${PORT}`));
