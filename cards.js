@@ -9,22 +9,22 @@ client.connect();
 client.on('error', error => console.log(error));
 
 
-
 /* this is our card object we can add more filters by adding more get functions if we have time */
 const cards = {
   getCardByClass : function(className) {
+    let validCards = [];
     let url = `https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/classes/${className}`;
+
     return superagent.get(url)
       .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
       .set('X-RapidAPI-Key', process.env.HEARTHSTONE_API_KEY)
       .then(data => {
-        let validCards = [];
-        data.forEach(card => {
+        data.body.forEach(card => {
           if(card.hasOwnProperty('collectible') && card.collectible === true && (card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon')){
             let currentCard = {
               name : card.name,
               type : card.type,
-              class : card.class,
+              class : card.playerClass,
               cost : card.cost,
               img : card.img,
               rarity : card.rarity
