@@ -20,6 +20,10 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
+const client = new Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', error => console.log(error));
+
 app.get('/', function(req, res) {
   res.render('pages/login');
 });
@@ -45,7 +49,7 @@ app.get('/aboutUs', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.status(404).send('404 not found');
+  res.render('pages/error');
 });
 
 app.post('/signUp', (req, res) => {
@@ -101,11 +105,21 @@ function getCards(query) {
     .set('X-RapidAPI-Host', 'omgvamp-hearthstone-v1.p.rapidapi.com')
     .set('X-RapidAPI-Key', HEARTHSTONE_API_KEY)
     .then(data => {
-      data.body.Basic.forEach(card => {
-        if(card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon') {
-          // console.log(new MakeCard(card));
-        }
+
+      let cardSets = [];
+      Object.keys(data.body).forEach(cardSet => {
+        cardSets.push(cardSet);
       });
+      cardSets = cardSets.slice(0,19);
+      for(let i = 0; i < cardSets.length; i++) {
+        data.body[cardSets[i]].forEach(card => {
+          if(card.type === 'Minion' && card.collectible === true || card.type === 'Spell' && card.collectible === true || card.type === 'Weapon' && card.collectible === true) {
+            console.log(new MakeCard(card));
+          } else {
+            // do nothing
+          }
+        });
+      }
     });
 }
 getCards('cards');
@@ -124,7 +138,10 @@ function MakeCard(card) {
   this.img = card.img;
 }
 
-function saveCards() {
+function saveCards(input, response) {
+  const sql = `INSERT INTO cards (name, type, class, cost, img)
+                VALUES ($1, $2, $3, $4, $5)`;
+  client.query(sql, [input.name, input.type, input.class, input.cost, input.img]);
 }
 
 // bcrypt hash notation - use callback to store in DB
