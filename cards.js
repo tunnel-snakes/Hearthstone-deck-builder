@@ -42,20 +42,20 @@ const cards = {
                 ON CONFLICT do nothing`;
     client.query(sql1, [cardObject.name, cardObject.type, cardObject.class, cardObject.cost, cardObject.img, cardObject.rarity])
       .then(()=> {
-        let sql2 = 'SELECT cardsId from cards WHERE name = $1';
+        let sql2 = 'SELECT cardId from cards WHERE name = $1';
         return client.query(sql2, [cardObject.name]);
       }).then(result => {
-        let cardId = result[0];
+        let cardId = result.rows[0].cardid;
         let sql3 = '';
-        if(cardObject.rarity === 'Legendry'){
-          sql3 = `INSERT INTO decksCards(deckId, cardId, quantity)
+        if(cardObject.rarity === 'Legendary'){
+          sql3 = `INSERT INTO deckCards(deckId, cardId, quantity)
                   VALUES ($1, $2, 1)
                   ON CONFLICT do nothing`;
         }
         else {
-          sql3 = `INSERT INTO decksCards(deckId, cardId, quantity)
+          sql3 = `INSERT INTO deckCards(deckId, cardId, quantity)
                   VALUES ($1, $2, 1)
-                  ON CONFLICT do update SET quantity = 2`;
+                  ON CONFLICT (deckId, cardId) DO UPDATE SET quantity=2`;
         }
         return client.query(sql3, [deckId, cardId]);
       }).catch(error => console.error(error));

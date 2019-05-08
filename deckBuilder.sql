@@ -1,5 +1,5 @@
 
-DROP TABLE IF EXISTS decksCards;
+DROP TABLE IF EXISTS deckCards;
 DROP TABLE IF EXISTS cards;
 DROP TABLE IF EXISTS decks;
 DROP TABLE IF EXISTS users;
@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE decks (
-  decksId SERIAL PRIMARY KEY,
+  deckId SERIAL PRIMARY KEY,
   deckName VARCHAR(15),
   class VARCHAR(100),
   userId BIGINT,
@@ -20,7 +20,7 @@ CREATE TABLE decks (
 );
 
 CREATE TABLE cards (
-  cardsId SERIAL PRIMARY KEY,
+  cardId SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   type VARCHAR(255),
   class VARCHAR(255),
@@ -29,12 +29,12 @@ CREATE TABLE cards (
   rarity VARCHAR (200)
 );
 
-CREATE TABLE decksCards (
-  decksId BIGINT,
-  cardsId BIGINT,
-  quantity INTEGER,
-  FOREIGN KEY (decksId) REFERENCES decks (decksId), 
-  FOREIGN KEY (cardsId) REFERENCES cards (cardsId),
-  UNIQUE (decksId, cardsId)
+CREATE TABLE deckCards (
+  deckId BIGINT,
+  cardId BIGINT,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY (deckId) REFERENCES decks (deckId), 
+  FOREIGN KEY (cardId) REFERENCES cards (cardId),
+  UNIQUE (deckId, cardId)
 );
 
