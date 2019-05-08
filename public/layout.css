@@ -1,3 +1,55 @@
 form.hidden {
   display: none;
 }
+
+div.creators {
+  height: 200vh;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(4, 25%);
+}
+
+div.Sky {
+grid-row-start: 1;
+grid-row-end: 2;
+border: 1px solid black;
+}
+
+div.Alex {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  border: 1px solid black;
+}
+
+div.Ian {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  border: 1px solid black;
+}
+
+div.Jacob {
+  grid-row-start: 4;
+  grid-row-end: 5;
+  border: 1px solid black;
+}
+
+img.Sky {
+  height: 75%;
+}
+
+img.Alex {
+  height: 75%;
+}
+
+img.Ian {
+  height: 75%;
+}
+
+img.Jacob {
+  height: 75%;
+}
+
+h2.person {
+  font-size: 18px;
+  font-weight: bold;
+}
