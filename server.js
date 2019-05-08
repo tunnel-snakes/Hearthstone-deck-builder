@@ -42,8 +42,11 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  res.render('builder');
+  res.render('pages/builder');
+  console.log(cards.getCardByClass('Druid'));
 });
+
+
 
 app.get('/aboutUs', function(req, res) {
   res.render('aboutUs');

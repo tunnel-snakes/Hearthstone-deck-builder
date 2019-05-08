@@ -9,7 +9,6 @@ client.connect();
 client.on('error', error => console.log(error));
 
 
-
 /* this is our card object we can add more filters by adding more get functions if we have time */
 const cards = {
   getCardByClass : function(className) {
@@ -19,7 +18,7 @@ const cards = {
       .set('X-RapidAPI-Key', process.env.HEARTHSTONE_API_KEY)
       .then(data => {
         let validCards = [];
-        data.forEach(card => {
+        data.body.forEach(card => {
           if(card.hasOwnProperty('collectible') && card.collectible === true && (card.type === 'Minion' || card.type === 'Spell' || card.type === 'Weapon')){
             let currentCard = {
               name : card.name,
@@ -31,6 +30,7 @@ const cards = {
             };
             validCards.push(currentCard);
           }
+          console.log(validCards);
         });
         return validCards;
       });
