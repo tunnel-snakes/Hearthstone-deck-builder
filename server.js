@@ -20,10 +20,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
-const client = new Client(process.env.DATABASE_URL);
-client.connect();
-client.on('error', error => console.log(error));
-
 /**Pulls in everything the const cards = in cards.js**/
 const cards = require('./cards.js');
 
@@ -46,9 +42,7 @@ app.get('/decks', function(req, res) {
 });
 
 app.get('/builder', function(req, res) {
-  console.log(checkDatabase());
-  //console.log(results);
-  //res.render('builder', {data: results});
+  res.render('builder');
 });
 
 app.get('/aboutUs', function(req, res) {
@@ -65,10 +59,7 @@ app.get('/cards/classes/:className', function(req, res) {
     .then(result => res.send(JSON.stringify(result)));
 });
 
-const client = new Client(process.env.DATABASE_URL);
-client.connect();
-client.on('error', error => console.log(error));
-
+/**This is the sign up madness **/
 app.post('/signUp', (req, res) => {
   let SQL = 'SELECT * FROM users WHERE userName=$1';
   let values = [req.body.uname];
@@ -121,10 +112,6 @@ app.post('/signUp', (req, res) => {
 //     return results;
 // }
 
-
-// function getFromDataBase() {
-//   console.log('got stuff from db');
-// }
 
 //Error
 function handleError (error, response) {
