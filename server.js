@@ -54,7 +54,6 @@ app.post('/builder/cards', function(req, res) {
   console.log(req.body.class);
   cards.getCardByClass(req.body.class)
     .then(function (cards) {
-      console.log(cards);
       res.render('pages/builder', {
         data: cards
       });
@@ -63,6 +62,16 @@ app.post('/builder/cards', function(req, res) {
 
 app.get('/aboutUs', function(req, res) {
   res.render('pages/aboutUs');
+});
+
+app.post('/save', function(req, res) {
+  console.log(req.body);
+  cards.getCardByClass(req.body.class)
+    .then(function (cards) {
+      res.render('pages/builder', {
+        data: cards
+      });
+    });
 });
 
 app.get('*', function(req, res) {
