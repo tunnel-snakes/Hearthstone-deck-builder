@@ -7,12 +7,46 @@ div.creators {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(4, 25%);
+  width: 100%;
 }
 
 div.Sky {
 grid-row-start: 1;
 grid-row-end: 2;
-border: 1px solid black;
+}
+
+p.skybio {
+  display: block;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+
+}
+
+p.alexbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+}
+
+p.ianbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+}
+
+p.jacobbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
 }
 
 div.Alex {
@@ -35,10 +69,12 @@ div.Jacob {
 
 img.Sky {
   height: 75%;
+  margin-left: 15px;
 }
 
 img.Alex {
   height: 75%;
+  float: right;
 }
 
 img.Ian {
@@ -47,11 +83,16 @@ img.Ian {
 
 img.Jacob {
   height: 75%;
+  float: right;
 }
 
 h2.person {
   font-size: 18px;
   font-weight: bold;
+  margin-left: 10px;
+  text-align: center;
+  padding: 10px;
+  height: 5px;
 }
 
 
@@ -110,6 +151,23 @@ h1.home {
   margin-top: 55px;
   margin-left: 45px;
   text-align: center;
+}
+/* LAYOUT FOR LOGIN */
+
+.main-login {
+  position: fixed;
+  height: 300px;
+  margin-left: 35px;
+  margin-right: 35px;
+  background-image: url(images/scroll.png);
+  box-shadow: 5px 10px #666;
+}
+
+.logo img {
+    max-width:100%;
+    height:auto;
+}
+
   margin-right: 45px;
   font-size: 27px;
   font-weight: bold;
