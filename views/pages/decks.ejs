@@ -4,18 +4,18 @@
 <body>
       <%- include ../partials/nav %>
 
-      <button class="create-deck">Create New Deck</button>
+      <button id="togglingForm" class="create-deck">Create New Deck</button>
       <% decks.forEach(deck => { %>
-        <a href="/decks/<%= deck.deckid %>"><%= deck.deckname %></a>
-        <% }); %>
-        
-      <button>Create New Deck</button>
-      <section class="pop-up">
+        <div class="user-decks">
+          <a href="/decks/<%= deck.deckid %>"><%= deck.deckname %></a>
+        </div>
+      <% }); %>
+      <section id="classToggle" class="pop-up hidden-toggle">
         <form action='/builder' method="POST">
-          <label for="deck-name">Name your deck:</label>
-          <input required type="text" maxlength="15" placeholder="Deck name" name="deckName">
-          <label for="class-select">Select deck class:</label>
-          <select required name="class">
+          <label class="deck-naming" for="deck-name">Name your deck:</label>
+          <input class="deck-naming" required type="text" maxlength="15" placeholder="Deck name" name="deckName">
+          <label class="class-select" for="class-select">Select deck class:</label>
+          <select class="class-select" required name="class">
             <option value="Druid">Druid</option>
             <option value="Hunter">Hunter</option>
             <option value="Mage">Mage</option>
@@ -26,9 +26,10 @@
             <option value="Warlock">Warlock</option>
             <option value="Warrior">Warrior</option>
           </select>
-          <input type="submit">
+          <input class="creator" type="submit">
         </form>
       </section>
       <%- include ../partials/footer %>
+      <script src="./app.js"></script>
 </body>
 </html>
