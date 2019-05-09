@@ -5,23 +5,16 @@
       <%- include ../partials/nav %>
   <main>
     <form method="POST" action="/builder/cards">
+      <h2>Deck: test</h2>
       <select name="class">
+        <option value="class">class</option>
         <option value="Neutral">Neutral</option>
-        <option value="Druid">Druid</option>
-        <option value="Hunter">Hunter</option>
-        <option value="Mage">Mage</option>
-        <option value="Paladin">Paladin</option>
-        <option value="Priest">Priest</option>
-        <option value="Rogue">Rogue</option>
-        <option value="Shaman">Shaman</option>
-        <option value="Warlock">Warlock</option>
-        <option value="Warrior">Warrior</option>
       </select>
       <input type="submit">
     </form>
     <section>
-      <% if(data) { %>
-        <% data.forEach(card => { %>
+      <% if(data) {n%>
+      <% data.forEach(card => { %>
         <img src="<%= card.img %>">
         <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
           <input type="text" name="name" value="<%= card.name %>">

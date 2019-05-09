@@ -32,6 +32,10 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/login-submit', function(req, res) {
+  res.redirect('/home');
+});
+
 app.get('/home', function(req, res) {
   res.render('pages/home');
 });
@@ -44,9 +48,10 @@ app.get('/decks', function(req, res) {
   res.render('pages/decks');
 });
 
-app.get('/builder', function(req, res) {
+app.post('/builder', function(req,res) {
+  console.log(req.body);
   res.render('pages/builder', {
-    data: false
+    class: req.body.class
   });
 });
 

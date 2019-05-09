@@ -3,7 +3,26 @@
   <%- include ../partials/head %>
 <body>
       <%- include ../partials/nav %>
-      <a href='/builder'>Create New Deck</a>
+      <button>Create New Deck</button>
+      <section class="pop-up">
+        <form action='/builder' method="POST">
+          <label for="deck-name">Name your deck:</label>
+          <input required type="text" placeholder="Deck name" name="name">
+          <label for="class-select">Select deck class:</label>
+          <select required name="class">
+            <option value="Druid">Druid</option>
+            <option value="Hunter">Hunter</option>
+            <option value="Mage">Mage</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Priest">Priest</option>
+            <option value="Rogue">Rogue</option>
+            <option value="Shaman">Shaman</option>
+            <option value="Warlock">Warlock</option>
+            <option value="Warrior">Warrior</option>
+          </select>
+          <input type="submit">
+        </form>
+      </section>
       <%- include ../partials/footer %>
 </body>
 </html>
