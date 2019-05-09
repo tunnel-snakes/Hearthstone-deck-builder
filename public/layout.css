@@ -183,6 +183,13 @@ h1.home {
 .link {
   width: 100%;
   padding: 0;
+  margin-left: 130px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.link2 {
+  width: 100%;
 }
 
 h1.home{
