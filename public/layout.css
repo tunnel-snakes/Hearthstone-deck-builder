@@ -160,20 +160,23 @@ h1.home {
   height: 300px;
   margin-left: 35px;
   margin-right: 35px;
-  background-image: url(images/scroll.png);
-  box-shadow: 5px 10px #666;
 }
 
 .main-login input {
-  width: 100%;
+  width: 83%;
+  margin: 7px;
   float: left;
-  padding: 30px;
-  margin-right: 50px;
+  padding: 20px;
 }
 
 .logo img {
     max-width:100%;
     height:auto;
+}
+
+.link {
+  width: 100%;
+  margin-left: 110px;
 }
 
 h1.home{

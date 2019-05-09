@@ -10,14 +10,12 @@
 <form class="container" action="/home" method="POST">
     <input class=text'type="text" placeholder="Enter Username" name="uname" required>
     <input class='password'type="password" placeholder="Enter Password" name="psw" required>
-    <input class='continue' type="submit" value="Submit">
+    <input class='continue' type="submit" value="Login">
 </form>
 <% if(message) { %>
 <p><%= message %></p>
 <% } %>
-<a href="/signUp">Create Account</a>
+<a class='link' href="/signUp">Create Account</a>
 </main>
-
-<%- include ../partials/footer %>
 </body>
 </html>
