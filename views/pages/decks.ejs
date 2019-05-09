@@ -3,8 +3,13 @@
   <%- include ../partials/head %>
 <body>
       <%- include ../partials/nav %>
-      
+
       <button class="create-deck">Create New Deck</button>
+      <% decks.forEach(deck => { %>
+        <a href=""><%= deck.deckname %></a>
+        <% }); %>
+        
+      <button>Create New Deck</button>
       <section class="pop-up">
         <form action='/builder' method="POST">
           <label for="deck-name">Name your deck:</label>

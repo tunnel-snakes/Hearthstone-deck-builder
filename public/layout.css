@@ -164,10 +164,18 @@ h1.home {
   box-shadow: 5px 10px #666;
 }
 
+.main-login input {
+  width: 100%;
+  float: left;
+  padding: 30px;
+  margin-right: 50px;
+}
+
 .logo img {
     max-width:100%;
     height:auto;
 }
+
 h1.home{
   margin-right: 45px;
   font-size: 27px;
