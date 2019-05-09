@@ -93,28 +93,46 @@ app.get('/home', function(req, res) {
 });
 
 app.get('/decks', function(req, res) {
+  //console.log(req.userid);
+  let SQL = 'SELECT * FROM decks WHERE userId=$1';
+  let values = [req.userid];
+  client.query(SQL, values).then(result => {
+    //console.log(result.rows[0]);
+  });
   res.render('pages/decks');
 });
 
 app.post('/builder', function(req,res) {
-  req.body.selectedClass = req.body.class;
-  console.log(req.body);
-  res.render('pages/builder', {
-    request: req.body,
-    cards: null
+  let SQL = 'INSERT INTO decks(deckname, class, userid) values($1,$2,$3);';
+  let values = [req.body.deckName, req.body.class, req.userid];
+  client.query(SQL, values);
+
+  let SQL2 = 'SELECT * FROM decks WHERE deckname=$1;';
+  let values2 = [req.body.deckName];
+
+  client.query(SQL2, values2).then(result => {
+    req.body.selectedClass = req.body.class;
+    //console.log(req.body);
+    res.render('pages/builder', {
+      deckid: result.rows[0].deckid,
+      request: req.body,
+      cards: null
+    });
+    console.log(result.rows[0]);
   });
 });
 
 // Deck Builder card display and save -------------------------
 app.post('/builder/cards', function(req, res) {
-  if(req.body.hasOwnProperty('cardName')) {
-    cards.saveCard(req.body, 1);
-    console.log(req.body);
+  if(req.body.hasOwnProperty('name')) {
+    cards.saveCard(req.body, req.deckid);
+    //console.log(req.body);
   } else {
-    console.log(req.body);
+    //console.log(req.body);
     cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
+          deckid: req.deckid,
           request: req.body,
           cards: cards
         });
