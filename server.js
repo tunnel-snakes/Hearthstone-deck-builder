@@ -53,13 +53,34 @@ app.post('/signUp', (req, res) => {
   }});
 });
 
-app.use('/*', require('./cookie-auth.js'));
-
 app.get('/', function(req, res) {
   res.render('pages/login', {
     message: null
   });
 });
+
+app.post('/home', function(req, res) {
+  let SQL = 'SELECT * FROM users WHERE username=$1';
+  let values = [req.body.uname];
+  console.log(req.cookies);
+  client.query(SQL, values).then(result => {
+    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+      if(compareResult) {
+        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
+        console.log(token);
+        res.cookie('hearthstone_token', token);
+        res.send(true);
+        //res.render('pages/home');
+      } else {
+        res.render('pages/login', {
+          message: 'Some message'
+        });
+      }
+    });
+  });
+});
+
+app.use('/*', require('./cookie-auth.js'));
 
 app.get('/home', function(req, res) {
   res.render('pages/home');
@@ -101,26 +122,7 @@ app.get('*', function(req, res) {
   res.render('pages/error');
 });
 
-app.post('/home', function(req, res) {
-  let SQL = 'SELECT * FROM users WHERE username=$1';
-  let values = [req.body.uname];
-  console.log(req.cookies);
-  client.query(SQL, values).then(result => {
-    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
-      if(compareResult) {
-        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
-        console.log(token);
-        res.cookie('hearthstone_token', token);
-        res.send(true);
-        //res.render('pages/home');
-      } else {
-        res.render('pages/login', {
-          message: 'Some message'
-        });
-      }
-    });
-  });
-});
+
 
 
 
