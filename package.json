@@ -20,9 +20,11 @@
   "homepage": "https://github.com/tunnel-snakes/Hearthstone-deck-builder#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^1.19.0",
     "pg": "^7.10.0",
     "superagent": "^5.0.5"

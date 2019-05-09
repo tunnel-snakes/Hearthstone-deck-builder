@@ -4,11 +4,15 @@ require('dotenv').config();
 const superagent = require('superagent');
 const { Client } = require('pg');
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
-const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
@@ -16,15 +20,38 @@ client.on('error', (error) => {
   console.log(error);
 });
 
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
+
 
 /**Pulls in everything the const cards = in cards.js**/
 const cards = require('./cards.js');
 
 
 /********** ROUTES **********/
+
+/**This is the sign up madness **/
+app.post('/signUp', (req, res) => {
+  let SQL = 'SELECT * FROM users WHERE userName=$1';
+  let values = [req.body.uname];
+
+  client.query(SQL, values).then(result => {{
+    if(!result.rows.length > 0){
+      bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
+        console.log(hash);
+        SQL = 'INSERT INTO users (userName, password) VALUES($1, $2)';
+        values = [req.body.uname, hash];
+        client.query(SQL, values).then(result => {
+          res.render('pages/home');
+        });
+      });
+    } else {
+      res.send('User exists');
+    }
+  }});
+});
 
 app.get('/', function(req, res) {
   res.render('pages/login', {
@@ -77,18 +104,17 @@ app.get('*', function(req, res) {
 });
 
 app.post('/home', function(req, res) {
-  console.log('in home');
-  console.log(req.body);
   let SQL = 'SELECT * FROM users WHERE username=$1';
   let values = [req.body.uname];
-
+  console.log(req.cookies);
   client.query(SQL, values).then(result => {
-    console.log(req.body.psw);
-    console.log(result.rows[0].password);
     bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
       if(compareResult) {
-        console.log(true);
-        res.render('pages/home');
+        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
+        console.log(token);
+        res.cookie('hearthstone_token', token);
+        res.send(true);
+        //res.render('pages/home');
       } else {
         res.render('pages/login', {
           message: 'Some message'
@@ -98,26 +124,7 @@ app.post('/home', function(req, res) {
   });
 });
 
-/**This is the sign up madness **/
-app.post('/signUp', (req, res) => {
-  let SQL = 'SELECT * FROM users WHERE userName=$1';
-  let values = [req.body.uname];
 
-  client.query(SQL, values).then(result => {{
-    if(!result.rows.length > 0){
-      bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
-        console.log(hash);
-        SQL = 'INSERT INTO users (userName, password) VALUES($1, $2)';
-        values = [req.body.uname, hash];
-        client.query(SQL, values).then(result => {
-          res.render('pages/home');
-        });
-      });
-    } else {
-      res.send('User exists');
-    }
-  }});
-});
 
 /** This is how you reach the api call we probably wont need to use but in case here it is **/
 app.get('/cards/classes/:className', function(req, res) {
@@ -133,3 +140,10 @@ function handleError (error, response) {
 
 /* console log if server lives */
 app.listen(PORT, () => console.log(`IT LIVES!!! on ${PORT}`));
+
+
+
+
+
+// let decoded = jwt.verify(token, process.env.PRIVATE_KEY);
+// console.log(decoded);
