@@ -5,7 +5,7 @@
       <%- include ../partials/nav %>
       <ul>
           <% deck.forEach(card => { %>
-            <li><%= card.cardid %></li>
+            <li><%= `${card.name} - ${card.quantity}` %></li>
           <% }); %>
       </ul>
       
