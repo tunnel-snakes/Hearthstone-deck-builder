@@ -29,8 +29,12 @@ app.use(express.static('./public'));
 
 /********** ROUTES **********/
 
+app.get('/signUp', function(req, res) {
+  res.render('pages/signUp.ejs');
+});
+
 /**This is the sign up madness **/
-app.post('/signUp', (req, res) => {
+app.post('/signUp-submit', (req, res) => {
   let SQL = 'SELECT * FROM users WHERE userName=$1';
   let values = [req.body.uname];
 
@@ -41,7 +45,7 @@ app.post('/signUp', (req, res) => {
         SQL = 'INSERT INTO users (userName, password) VALUES($1, $2)';
         values = [req.body.uname, hash];
         client.query(SQL, values).then(result => {
-          res.render('pages/home');
+          res.redirect('/');
         });
       });
     } else {
