@@ -1,6 +1,6 @@
 # Hearthstone-deck-builder
 
-This is the HearthStone deckbuilder mobile application 
+This is HearthCraft the Hearthstone deckbuilder mobile application 
 
 Brought to you By:
 Alexander Beeksma

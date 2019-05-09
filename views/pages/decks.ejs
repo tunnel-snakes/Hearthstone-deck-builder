@@ -3,7 +3,12 @@
   <%- include ../partials/head %>
 <body>
       <%- include ../partials/nav %>
-      <a href='/builder'>Create New Deck</a>
+      <div>
+        <form>
+        <input type="text" placeholder="Enter Deck Name" name="deckname" required>
+        <input type="submit" value="Create Deck">
+      </form>
+      </div>
       <%- include ../partials/footer %>
 </body>
 </html>
