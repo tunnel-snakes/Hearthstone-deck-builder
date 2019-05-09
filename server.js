@@ -7,8 +7,13 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+
 const PORT = process.env.PORT || 3000;
 const saltRounds = 10;
+
+/**Pulls in everything the const cards = in cards.js**/
+const cards = require('./cards.js');
+
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', (error) => {
@@ -20,10 +25,6 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
-
-
-/**Pulls in everything the const cards = in cards.js**/
-const cards = require('./cards.js');
 
 
 /********** ROUTES **********/
@@ -49,12 +50,6 @@ app.post('/signUp', (req, res) => {
   }});
 });
 
-app.get('/', function(req, res) {
-  res.render('pages/login', {
-    message: null
-  });
-});
-
 app.post('/home', function(req, res) {
   let SQL = 'SELECT * FROM users WHERE username=$1';
   let values = [req.body.uname];
@@ -76,7 +71,14 @@ app.post('/home', function(req, res) {
   });
 });
 
-app.use('/*', require('./cookie-auth.js'));
+app.get('/', function(req, res) {
+  res.render('pages/login', {
+    message: null
+  });
+});
+
+/**** All following routes will use this middleware: checks for a cookie with a token otherwise sends back to login ****/
+app.use('/*', require('./cookie-auth.js')); //this also sets req.userid for all following routes (can use to set userid to deckid)
 
 app.get('/home', function(req, res) {
   res.render('pages/home');
@@ -92,8 +94,7 @@ app.get('/builder', function(req, res) {
   });
 });
 
-// Deck Builder card display and save -------------------------------------
-
+// Deck Builder card display and save -------------------------
 app.post('/builder/cards', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, 1);
@@ -118,10 +119,6 @@ app.get('*', function(req, res) {
   res.render('pages/error');
 });
 
-
-
-
-
 /** This is how you reach the api call we probably wont need to use but in case here it is **/
 app.get('/cards/classes/:className', function(req, res) {
   cards.getCardByClass(req.params.className)
@@ -136,10 +133,3 @@ function handleError (error, response) {
 
 /* console log if server lives */
 app.listen(PORT, () => console.log(`IT LIVES!!! on ${PORT}`));
-
-
-
-
-
-// let decoded = jwt.verify(token, process.env.PRIVATE_KEY);
-// console.log(decoded);
