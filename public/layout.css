@@ -92,16 +92,18 @@ img.Sky {
 img.Alex {
   height: 75%;
   float: right;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 img.Ian {
   height: 75%;
+  margin-left: 20px;
 }
 
 img.Jacob {
   height: 75%;
   float: right;
+  margin-right: 20px;
 }
 
 h2.person {
@@ -113,6 +115,7 @@ h2.person {
   height: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
+  margin-right: 10px;
 }
 
 
