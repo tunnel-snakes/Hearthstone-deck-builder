@@ -4,31 +4,31 @@
 <body>
       <%- include ../partials/nav %>
   <main>
+    <h2>Deck: <%= request.name %></h2>
     <form method="POST" action="/builder/cards">
-      <h2>Deck: test</h2>
       <select name="class">
-        <option value="class">class</option>
+        <option value="<%= request.class %>"><%= request.class %></option>
         <option value="Neutral">Neutral</option>
       </select>
       <input type="submit">
     </form>
     <section>
-      <% if(data) { %>
-      <% data.forEach(card => { %>
-        <img src="<%= card.img %>">
-        <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
-          <input type="text" name="name" value="<%= card.name %>">
-          <input type="text" name="type" value="<%= card.type %>">
-          <input type="text" name="class" value="<%= card.class %>">
-          <input type="text" name="cost" value="<%= card.cost %>">
-          <input type="text" name="img" value="<%= card.img %>">
-          <input type="text" name="rarity" value="<%= card.rarity %>">
-        </form>
-        <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
-        <% }) %>
-      <% } else { %>
-        <p>please select a class to display cards</p>
-      <% } %>
+        <% if(cards) { %>
+          <% cards.forEach(card => { %>
+            <img src="<%= card.img %>">
+            <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
+              <input type="text" name="name" value="<%= card.name %>">
+              <input type="text" name="type" value="<%= card.type %>">
+              <input type="text" name="class" value="<%= card.class %>">
+              <input type="text" name="cost" value="<%= card.cost %>">
+              <input type="text" name="img" value="<%= card.img %>">
+              <input type="text" name="rarity" value="<%= card.rarity %>">
+            </form>
+            <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
+            <% }) %>
+          <% } else { %>
+            <p>please select a class to display cards</p>
+          <% } %>
     </section>
   </main>
     <!-- <%- include ../partials/footer %> -->

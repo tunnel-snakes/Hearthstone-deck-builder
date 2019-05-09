@@ -99,21 +99,23 @@ app.get('/decks', function(req, res) {
 app.post('/builder', function(req,res) {
   console.log(req.body);
   res.render('pages/builder', {
-    data: null
+    request: req.body,
+    cards: null
   });
 });
 
 // Deck Builder card display and save -------------------------
 app.post('/builder/cards', function(req, res) {
-  if(req.body.hasOwnProperty('name')) {
+  if(req.body.hasOwnProperty('cardName')) {
     cards.saveCard(req.body, 1);
     console.log(req.body);
   } else {
     console.log(req.body);
     cards.getCardByClass(req.body.class)
-      .then(function (cards) {
+      .then(function(cards) {
         res.render('pages/builder', {
-          data: cards
+          request: req.body,
+          cards: cards
         });
       });
     console.log('Displaying Cards');
