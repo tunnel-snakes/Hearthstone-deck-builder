@@ -77,6 +77,10 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/login-submit', function(req, res) {
+  res.redirect('/home');
+});
+
 /**** All following routes will use this middleware: checks for a cookie with a token otherwise sends back to login ****/
 app.use('/*', require('./cookie-auth.js')); //this also sets req.userid for all following routes (can use to set userid to deckid)
 
@@ -88,9 +92,10 @@ app.get('/decks', function(req, res) {
   res.render('pages/decks');
 });
 
-app.get('/builder', function(req, res) {
+app.post('/builder', function(req,res) {
+  console.log(req.body);
   res.render('pages/builder', {
-    data: false
+    class: req.body.class
   });
 });
 
