@@ -29,8 +29,8 @@ app.use(express.static('./public'));
 
 /********** ROUTES **********/
 
-app.post('/deck-info', function(req, res) {
-
+app.get('/decks/:id', function(req, res) {
+  res.send(req.params.id);
 });
 
 app.get('/signUp', function(req, res) {
@@ -45,7 +45,6 @@ app.post('/signUp-submit', (req, res) => {
   client.query(SQL, values).then(result => {{
     if(!result.rows.length > 0){
       bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
-        console.log(hash);
         SQL = 'INSERT INTO users (userName, password) VALUES($1, $2)';
         values = [req.body.uname, hash];
         client.query(SQL, values).then(result => {
@@ -63,20 +62,27 @@ app.post('/home', function(req, res) {
   let values = [req.body.uname];
   console.log(req.cookies);
   client.query(SQL, values).then(result => {
-    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
-      if(compareResult) {
-        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
-        console.log(token);
-        res.cookie('hearthstone_token', token);
-        //res.send(true);
-        res.render('pages/home');
-      } else {
-        res.render('pages/login', {
-          message: 'Invalid Username or Password'
-        });
-      }
-    });
-  });
+    if (result.rows.length > 0){
+      bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+        if(compareResult) {
+          let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
+          console.log(token);
+          res.cookie('hearthstone_token', token);
+          res.render('pages/home');
+        }
+        else {
+          res.render('pages/login', {
+            message: 'Invalid Username or Password'
+          });
+        }
+      });
+    }
+    else {
+      res.render('pages/login', {
+        message: 'Username or Password incorrect!'
+      });
+    }
+  }).catch(console.error);
 });
 
 app.get('/', function(req, res) {
@@ -101,12 +107,11 @@ app.get('/decks', function(req, res) {
   let SQL = 'SELECT * FROM decks WHERE userid=$1;';
   let values = [req.userid];
   client.query(SQL, values).then(result => {
-    console.log(result.rows);
     res.render('pages/decks', {
       decks: result.rows
     });
   });
-  
+
 });
 
 app.post('/builder', function(req,res) {
@@ -130,7 +135,7 @@ app.post('/builder', function(req,res) {
 });
 
 // Deck Builder card display and save -------------------------
-app.post('/builder?deckid=', function(req, res) {
+app.post('/builder/cards', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, req.deckid);
     //console.log(req.body);
