@@ -30,7 +30,14 @@ app.use(express.static('./public'));
 /********** ROUTES **********/
 
 app.get('/decks/:id', function(req, res) {
-  res.send(req.params.id);
+  let SQL = 'SELECT cardId FROM deckCards WHERE deckId=$1;';
+  let values = [req.params.id];
+  client.query(SQL, values).then(result => {
+    console.log(result.rows);
+    res.render('pages/deck-info', {
+      deck: result.rows
+    });
+  });
 });
 
 app.get('/signUp', function(req, res) {
@@ -117,27 +124,28 @@ app.post('/builder', function(req,res) {
 
   client.query(SQL2, values2).then(result => {
     req.body.selectedClass = req.body.class;
+    console.log(result.rows[0]);
     //console.log(req.body);
     res.render('pages/builder', {
       deckid: result.rows[0].deckid,
       request: req.body,
       cards: null
     });
-    console.log(result.rows[0]);
+    
   });
 });
 
 // Deck Builder card display and save -------------------------
-app.post('/builder/cards', function(req, res) {
+app.post('/builder/cards/:id', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
-    cards.saveCard(req.body, req.deckid);
-    //console.log(req.body);
+    cards.saveCard(req.body, req.params.id);
+    console.log(req.params.id);
   } else {
-    //console.log(req.body);
+    console.log(req.body);
     cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
-          deckid: req.deckid,
+          deckid: req.params.id,
           request: req.body,
           cards: cards
         });
