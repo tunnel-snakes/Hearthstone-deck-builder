@@ -73,7 +73,7 @@ app.post('/home', function(req, res) {
         //res.render('pages/home');
       } else {
         res.render('pages/login', {
-          message: 'Some message'
+          message: 'Invalid Username or Password'
         });
       }
     });
