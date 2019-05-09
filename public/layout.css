@@ -56,30 +56,21 @@ h2.person {
 
 
 /* LAYOUT FOR BUILDER */
-html {
-  width: 100vh;
-  height: 100vh;
-  margin: 0;
-}
+
 body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
   background-image: url(/images/background.png);
   background-repeat: repeat;
-  background-size: 100vh;
+  background-size: 100%;
 }
 
 
-img {
-  width: 50vh;
-  float: left;
+img.builderCards {
+  width: 37%;
 }
 
-.save-button {
+button.save-button {
   width: 40px;
   height: 40px;
-  clear: both;
 }
 
 div.topnav {
