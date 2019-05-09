@@ -62,20 +62,27 @@ app.post('/home', function(req, res) {
   let values = [req.body.uname];
   console.log(req.cookies);
   client.query(SQL, values).then(result => {
-    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
-      if(compareResult) {
-        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
-        console.log(token);
-        res.cookie('hearthstone_token', token);
-        //res.send(true);
-        res.render('pages/home');
-      } else {
-        res.render('pages/login', {
-          message: 'Invalid Username or Password'
-        });
-      }
-    });
-  });
+    if (result.rows.length > 0){
+      bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+        if(compareResult) {
+          let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
+          console.log(token);
+          res.cookie('hearthstone_token', token);
+          res.render('pages/home');
+        }
+        else {
+          res.render('pages/login', {
+            message: 'Invalid Username or Password'
+          });
+        }
+      });
+    }
+    else {
+      res.render('pages/login', {
+        message: 'Username or Password incorrect!'
+      });
+    }
+  }).catch(console.error);
 });
 
 app.get('/', function(req, res) {
@@ -104,7 +111,7 @@ app.get('/decks', function(req, res) {
       decks: result.rows
     });
   });
-  
+
 });
 
 app.post('/builder', function(req,res) {
