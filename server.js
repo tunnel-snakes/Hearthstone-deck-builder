@@ -63,10 +63,6 @@ app.get('/home', function(req, res) {
   res.render('pages/home');
 });
 
-app.get('/signUp', function(req, res) {
-  res.render('pages/signUp');
-});
-
 app.get('/decks', function(req, res) {
   res.render('pages/decks');
 });
