@@ -4,14 +4,16 @@
 <body>
       <%- include ../partials/nav %>
   <main>
-    <h2>Deck: <%= request.name %></h2>
-    <form method="POST" action="/builder/cards">
-      <select name="class">
-        <option value="<%= request.class %>"><%= request.class %></option>
-        <option value="Neutral">Neutral</option>
-      </select>
-      <input type="submit">
-    </form>
+    <div class="class-select">
+      <h2>Deck: <%= request.name %></h2>
+      <form method="POST" action="/builder/cards">
+        <select name="class">
+          <option value="<%= request.class %>"><%= request.class %></option>
+          <option value="Neutral">Neutral</option>
+        </select>
+        <input type="submit">
+      </form>
+    </div>
     <section class='contain-container'>
       <% if(cards) { %>
       <% cards.forEach(card => { %>
@@ -33,6 +35,5 @@
         <% } %>
     </section>
   </main>
-    <!-- <%- include ../partials/footer %> -->
 </body>
 </html>
