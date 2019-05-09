@@ -86,7 +86,7 @@ app.get('/login-submit', function(req, res) {
 });
 
 /**** All following routes will use this middleware: checks for a cookie with a token otherwise sends back to login ****/
-//app.use('/*', require('./cookie-auth.js')); //this also sets req.userid for all following routes (can use to set userid to deckid)
+app.use('/*', require('./cookie-auth.js')); //this also sets req.userid for all following routes (can use to set userid to deckid)
 
 app.get('/home', function(req, res) {
   res.render('pages/home');
