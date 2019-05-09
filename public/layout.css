@@ -64,15 +64,13 @@ body {
 }
 
 
-img {
-  width: 50vh;
-  float: left;
+img.builderCards {
+  width: 37%;
 }
 
 .save-button {
   width: 40px;
   height: 40px;
-  clear: both;
 }
 
 div.topnav {
