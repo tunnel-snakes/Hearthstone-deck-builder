@@ -3,6 +3,8 @@
   <%- include ../partials/head %>
 <body>
       <%- include ../partials/nav %>
+
+      <button class="create-deck">Create New Deck</button>
       <% decks.forEach(deck => { %>
         <a href=""><%= deck.deckname %></a>
         <% }); %>

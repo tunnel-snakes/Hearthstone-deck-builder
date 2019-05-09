@@ -22,7 +22,7 @@ p.skybio {
   font-weight: bold;
   float: right;
   width: 50%;
-
+  margin-top: 30px;
 }
 
 p.alexbio {
@@ -70,6 +70,7 @@ div.Jacob {
 img.Sky {
   height: 75%;
   margin-left: 15px;
+  margin-top: 25px;
 }
 
 img.Alex {
@@ -174,7 +175,8 @@ h1.home {
     max-width:100%;
     height:auto;
 }
-h1.home {
+
+h1.home{
   margin-right: 45px;
   font-size: 27px;
   font-weight: bold;
@@ -191,3 +193,6 @@ footer {
   margin-left: 45px;
 }
 
+button.create-deck {
+  margin-top: 60px;
+}
