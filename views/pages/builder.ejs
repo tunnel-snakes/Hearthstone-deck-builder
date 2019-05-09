@@ -21,7 +21,7 @@
         
       </select>
       
-      <input type="submit">
+      <input class="submit-button" type="submit">
     </form>
    </div>
    
@@ -47,5 +47,15 @@
         <% } %>
     </section>
   </main>
+  <script>
+      function hamburgerSwitch() {
+          let toggle = document.getElementById("myLinks");
+          if (toggle.style.display === "block") {
+            toggle.style.display = "none";
+          } else {
+            toggle.style.display = "block";
+          }
+      }
+  </script>
 </body>
 </html>
