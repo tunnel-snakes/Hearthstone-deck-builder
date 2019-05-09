@@ -4,7 +4,7 @@
 <body>
       <%- include ../partials/nav %>
       <% decks.forEach(deck => { %>
-        <a href=""><%= deck.deckname %></a>
+        <a href="/decks/<%= deck.deckid %>"><%= deck.deckname %></a>
         <% }); %>
         
       <button>Create New Deck</button>
