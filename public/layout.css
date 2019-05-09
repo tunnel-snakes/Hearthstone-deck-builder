@@ -86,15 +86,42 @@ img.builderCards {
 
 button.save-button {
   height: 40px;
-  background-color: #95FDFF;
+  background-color: #736258;
+  color: white;
   border-radius: 20px;
 }
 
-div.topnav {
-  text-align: center;
-  background-color: tan;
+div.class-select {
+  margin-left: 45px;
+  margin-top: 55px;
 }
 
-div.class-select {
+div.class-select h2 {
+  margin: 10px 0px;
+}
+
+input.submit-button {
+background-color: #736258;
+color: white;
+border-radius: 20px;
+}
+
+h1.home {
+  margin-top: 55px;
+  margin-left: 45px;
+  text-align: center;
+  margin-right: 45px;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+p.home {
+  margin-top: 15px;
+  margin-left: 45px;
+  margin-bottom: 500px;
+  margin-right: 45px;
+}
+
+footer {
   margin-left: 45px;
 }
