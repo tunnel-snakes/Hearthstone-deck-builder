@@ -7,19 +7,15 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
-
-const app = express();
 const PORT = process.env.PORT || 3000;
-const HEARTHSTONE_API_KEY = process.env.HEARTHSTONE_API_KEY;
 const saltRounds = 10;
-
-
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', (error) => {
   console.log(error);
 });
 
+const app = express();
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
