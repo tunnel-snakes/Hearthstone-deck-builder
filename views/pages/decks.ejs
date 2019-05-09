@@ -3,7 +3,10 @@
   <%- include ../partials/head %>
 <body>
       <%- include ../partials/nav %>
-      
+      <% decks.forEach(deck => { %>
+        <a href=""><%= deck.deckname %></a>
+        <% }); %>
+        
       <button>Create New Deck</button>
       <section class="pop-up">
         <form action='/builder' method="POST">
