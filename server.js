@@ -97,6 +97,7 @@ app.get('/decks', function(req, res) {
 });
 
 app.post('/builder', function(req,res) {
+  req.body.selectedClass = req.body.class;
   console.log(req.body);
   res.render('pages/builder', {
     request: req.body,
@@ -111,7 +112,7 @@ app.post('/builder/cards', function(req, res) {
     console.log(req.body);
   } else {
     console.log(req.body);
-    cards.getCardByClass(req.body.class)
+    cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
           request: req.body,
