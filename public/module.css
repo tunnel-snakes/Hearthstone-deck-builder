@@ -1,7 +1,11 @@
 .topnav {
     overflow: hidden;
-    background-color: #4357AD;
-    position: relative;
+    background-color: #3f3f3f;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
   }
   
   .topnav #myLinks {
@@ -9,7 +13,7 @@
   }
   
   .topnav a {
-    color: black;
+    color: white;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
@@ -17,19 +21,17 @@
   }
   
   .topnav a.icon {
-    background: #B9F2FF;
+    background: #232323;
     display: block;
     position: absolute;
     right: 0;
     top: 0;
   }
   
-  .topnav a:hover {
-    background-color: #E4FDE1;
-    color: #4357AD;
-  }
-  
   .active {
-    background-color: #B9F2FF;
+    background-color: #232323;
     color: #F1FAEE;
+    top: 0;
+    left: 0;
+    right: 0;
   }

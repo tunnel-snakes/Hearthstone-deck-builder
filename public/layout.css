@@ -1,4 +1,4 @@
-form.hidden {
+.hidden {
   display: none;
 }
 
@@ -105,21 +105,53 @@ body {
 }
 
 
+div.img-container {
+  width: 45%;
+  text-align: center;
+}
+
+div.img-container:nth-child(odd) {
+float: left;
+margin-left: 15px;
+}
+
+div.img-container:nth-child(even) {
+  float: right;
+  margin-right: 15px;
+}
+
 img.builderCards {
-  width: 37%;
+  max-width: 100%;
+  text-align: center;
 }
 
 button.save-button {
-  width: 40px;
   height: 40px;
+  background-color: #736258;
+  color: white;
+  border-radius: 20px;
 }
 
-div.topnav {
+div.class-select {
+  margin-left: 45px;
+  margin-top: 55px;
+}
+
+div.class-select h2 {
+  margin: 10px 0px;
+}
+
+input.submit-button {
+background-color: #736258;
+color: white;
+border-radius: 20px;
+}
+
+h1.home {
+  margin-top: 55px;
+  margin-left: 45px;
   text-align: center;
-  background-color: tan;
 }
-
-
 /* LAYOUT FOR LOGIN */
 
 .main-login {
@@ -136,5 +168,18 @@ div.topnav {
     height:auto;
 }
 
+  margin-right: 45px;
+  font-size: 27px;
+  font-weight: bold;
+}
 
+p.home {
+  margin-top: 15px;
+  margin-left: 45px;
+  margin-bottom: 500px;
+  margin-right: 45px;
+}
 
+footer {
+  margin-left: 45px;
+}

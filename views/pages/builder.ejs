@@ -4,33 +4,58 @@
 <body>
       <%- include ../partials/nav %>
   <main>
+
+  <div class="class-select">
     <h2>Deck: <%= request.name %></h2>
     <form method="POST" action="/builder/cards">
-      <select name="class">
-        <option value="<%= request.class %>"><%= request.class %></option>
-        <option value="Neutral">Neutral</option>
+      <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
+      <input name="deckName" type="text" value="<%= request.deckName %>" class="hidden">
+      <input name="class" type="text" value="<%= request.class %>" class="hidden">
+      <select name="selectedClass">
+        <option value="<%= request.selectedClass %>"><%= request.selectedClass %></option>
+        <% if(request.selectedClass === request.class) { %>
+          <option value="Neutral">Neutral</option>
+        <% } else { %>
+          <option value="<%= request.class %>"><%= request.class %></option>
+        <% } %>
+        
       </select>
-      <input type="submit">
+      
+      <input class="submit-button" type="submit">
     </form>
-    <section>
-        <% if(cards) { %>
-          <% cards.forEach(card => { %>
-            <img src="<%= card.img %>">
-            <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
-              <input type="text" name="name" value="<%= card.name %>">
-              <input type="text" name="type" value="<%= card.type %>">
-              <input type="text" name="class" value="<%= card.class %>">
-              <input type="text" name="cost" value="<%= card.cost %>">
-              <input type="text" name="img" value="<%= card.img %>">
-              <input type="text" name="rarity" value="<%= card.rarity %>">
-            </form>
-            <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
-            <% }) %>
-          <% } else { %>
-            <p>please select a class to display cards</p>
-          <% } %>
+   </div>
+   
+   
+    <section class='contain-container'>
+      <% if(cards) { %>
+      <% cards.forEach(card => { %>
+        <div class="img-container">
+          <img class="builderCards" src="<%= card.img %>">
+          <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
+            <input type="text" name="name" value="<%= card.name %>">
+            <input type="text" name="type" value="<%= card.type %>">
+            <input type="text" name="class" value="<%= card.class %>">
+            <input type="text" name="cost" value="<%= card.cost %>">
+            <input type="text" name="img" value="<%= card.img %>">
+            <input type="text" name="rarity" value="<%= card.rarity %>">
+          </form>
+          <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
+        </div>
+          <% }) %>
+        <% } else { %>
+          <p>please select a class to display cards</p>
+        <% } %>
     </section>
   </main>
-    <!-- <%- include ../partials/footer %> -->
+  <script>
+      function hamburgerSwitch() {
+          let toggle = document.getElementById("myLinks");
+          if (toggle.style.display === "block") {
+            toggle.style.display = "none";
+          } else {
+            toggle.style.display = "block";
+          }
+      }
+  </script>
 </body>
 </html>
