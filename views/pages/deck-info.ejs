@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ../partials/head %>
+<body>
+      <%- include ../partials/nav %>
+      <ul>
+          <% deck.forEach(card => { %>
+            <li><%= card.cardid %></li>
+          <% }); %>
+      </ul>
+      
+      <%- include ../partials/footer %>
+</body>
+</html>

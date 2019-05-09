@@ -7,7 +7,7 @@
 
   <div class="class-select">
     <h2>Deck: <%= request.name %></h2>
-    <form method="POST" action="/builder/cards">
+    <form method="POST" action="/builder/cards/<%= deckid %>">
       <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
       <input name="deckName" type="text" value="<%= request.deckName %>" class="hidden">
       <input name="class" type="text" value="<%= request.class %>" class="hidden">
@@ -31,7 +31,7 @@
       <% cards.forEach(card => { %>
         <div class="img-container">
           <img class="builderCards" src="<%= card.img %>">
-          <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
+          <form id="<%= card.name %>" method="POST" action="/builder/cards/<%= deckid %>" class="hidden">
             <input type="text" name="name" value="<%= card.name %>">
             <input type="text" name="type" value="<%= card.type %>">
             <input type="text" name="class" value="<%= card.class %>">
