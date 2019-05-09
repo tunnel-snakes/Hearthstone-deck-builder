@@ -86,9 +86,15 @@ img.builderCards {
 
 button.save-button {
   height: 40px;
+  background-color: #95FDFF;
+  border-radius: 20px;
 }
 
 div.topnav {
   text-align: center;
   background-color: tan;
+}
+
+div.class-select {
+  margin-left: 45px;
 }

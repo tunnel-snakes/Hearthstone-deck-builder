@@ -4,6 +4,8 @@
 <body>
       <%- include ../partials/nav %>
   <main>
+
+  <div class="class-select">
     <h2>Deck: <%= request.name %></h2>
     <form method="POST" action="/builder/cards">
       <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
@@ -21,6 +23,9 @@
       
       <input type="submit">
     </form>
+   </div>
+   
+   
     <section class='contain-container'>
       <% if(cards) { %>
       <% cards.forEach(card => { %>
@@ -42,6 +47,5 @@
         <% } %>
     </section>
   </main>
-    <!-- <%- include ../partials/footer %> -->
 </body>
 </html>
