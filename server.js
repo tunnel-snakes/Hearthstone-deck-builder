@@ -30,7 +30,7 @@ app.use(express.static('./public'));
 /********** ROUTES **********/
 
 app.get('/decks/:id', function(req, res) {
-  let SQL = 'SELECT cardId FROM deckCards WHERE deckId=$1;';
+  let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
   let values = [req.params.id];
   client.query(SQL, values).then(result => {
     console.log(result.rows);

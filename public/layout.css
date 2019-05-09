@@ -237,3 +237,7 @@ footer {
 button.create-deck {
   margin-top: 60px;
 }
+
+ul {
+  margin: 100px 40px;
+}
