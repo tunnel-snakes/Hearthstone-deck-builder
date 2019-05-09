@@ -77,10 +77,14 @@ app.get('*', function(req, res) {
 });
 
 app.post('/home', function(req, res) {
+  console.log('in home');
+  console.log(req.body);
   let SQL = 'SELECT * FROM users WHERE username=$1';
   let values = [req.body.uname];
 
   client.query(SQL, values).then(result => {
+    console.log(req.body.psw);
+    console.log(result.rows[0].password);
     bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
       if(compareResult) {
         console.log(true);
@@ -92,12 +96,6 @@ app.post('/home', function(req, res) {
       }
     });
   });
-});
-
-/** This is how you reach the api call we probably wont need to use but in case here it is **/
-app.get('/cards/classes/:className', function(req, res) {
-  cards.getCardByClass(req.params.className)
-    .then(result => res.send(JSON.stringify(result)));
 });
 
 /**This is the sign up madness **/
@@ -119,6 +117,12 @@ app.post('/signUp', (req, res) => {
       res.send('User exists');
     }
   }});
+});
+
+/** This is how you reach the api call we probably wont need to use but in case here it is **/
+app.get('/cards/classes/:className', function(req, res) {
+  cards.getCardByClass(req.params.className)
+    .then(result => res.send(JSON.stringify(result)));
 });
 
 //Error
