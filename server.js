@@ -29,6 +29,10 @@ app.use(express.static('./public'));
 
 /********** ROUTES **********/
 
+app.post('/deck-info', function(req, res) {
+
+});
+
 app.get('/signUp', function(req, res) {
   res.render('pages/signUp.ejs');
 });
@@ -94,12 +98,15 @@ app.get('/home', function(req, res) {
 
 app.get('/decks', function(req, res) {
   //console.log(req.userid);
-  let SQL = 'SELECT * FROM decks WHERE userId=$1';
+  let SQL = 'SELECT * FROM decks WHERE userid=$1;';
   let values = [req.userid];
   client.query(SQL, values).then(result => {
-    //console.log(result.rows[0]);
+    console.log(result.rows);
+    res.render('pages/decks', {
+      decks: result.rows
+    });
   });
-  res.render('pages/decks');
+  
 });
 
 app.post('/builder', function(req,res) {
@@ -123,7 +130,7 @@ app.post('/builder', function(req,res) {
 });
 
 // Deck Builder card display and save -------------------------
-app.post('/builder/cards', function(req, res) {
+app.post('/builder?deckid=', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, req.deckid);
     //console.log(req.body);
