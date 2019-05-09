@@ -2,18 +2,23 @@
 <html lang="en">
   <%- include ../partials/head %>
 <body>
-<form class="container" action="/home" method="POST">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    <input type="submit" value="Submit">
-</form>
 
+  <section class='logo'><img src="images/logo.png" alt=""></section>
+
+<main class='main-login'>
+<div class='spacer'></div>
+<form class="container" action="/home" method="POST">
+    <label class='uname' for="uname"><b>Username</b></label>
+    <input class=text'type="text" placeholder="Enter Username" name="uname" required>
+    <label class='psw'for="psw"><b>Password</b></label>
+    <input class='password'type="password" placeholder="Enter Password" name="psw" required>
+    <input class='continue' type="submit" value="Submit">
+</form>
 <% if(message) { %>
 <p><%= message %></p>
 <% } %>
 <a href="/signUp">Create Account</a>
+</main>
 
 <%- include ../partials/footer %>
 </body>

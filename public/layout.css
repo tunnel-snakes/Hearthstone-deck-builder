@@ -13,15 +13,16 @@ div.creators {
 div.Sky {
 grid-row-start: 1;
 grid-row-end: 2;
-border: 1px solid black;
 }
 
 p.skybio {
   display: block;
+  position: relative;
   font-size: 18px;
   font-weight: bold;
   float: right;
   width: 50%;
+
 }
 
 p.alexbio {
@@ -68,6 +69,7 @@ div.Jacob {
 
 img.Sky {
   height: 75%;
+  margin-left: 15px;
 }
 
 img.Alex {
@@ -84,10 +86,13 @@ img.Jacob {
   float: right;
 }
 
-h2.person:nth-child(odd) {
+h2.person {
   font-size: 18px;
   font-weight: bold;
-
+  margin-left: 10px;
+  text-align: center;
+  padding: 10px;
+  height: 5px;
 }
 
 
@@ -113,3 +118,23 @@ div.topnav {
   text-align: center;
   background-color: tan;
 }
+
+
+/* LAYOUT FOR LOGIN */
+
+.main-login {
+  position: fixed;
+  height: 300px;
+  margin-left: 35px;
+  margin-right: 35px;
+  background-image: url(images/scroll.png);
+  box-shadow: 5px 10px #666;
+}
+
+.logo img {
+    max-width:100%;
+    height:auto;
+}
+
+
+
