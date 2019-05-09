@@ -60,8 +60,8 @@ app.post('/home', function(req, res) {
         let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
         console.log(token);
         res.cookie('hearthstone_token', token);
-        res.send(true);
-        //res.render('pages/home');
+        //res.send(true);
+        res.render('pages/home');
       } else {
         res.render('pages/login', {
           message: 'Invalid Username or Password'
