@@ -64,12 +64,27 @@ body {
 }
 
 
+div.img-container {
+  width: 45%;
+  text-align: center;
+}
+
+div.img-container:nth-child(odd) {
+float: left;
+margin-left: 15px;
+}
+
+div.img-container:nth-child(even) {
+  float: right;
+  margin-right: 15px;
+}
+
 img.builderCards {
-  width: 37%;
+  max-width: 100%;
+  text-align: center;
 }
 
 button.save-button {
-  width: 40px;
   height: 40px;
 }
 

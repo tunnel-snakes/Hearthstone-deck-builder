@@ -20,23 +20,25 @@
       
       <input type="submit">
     </form>
-    <section>
-        <% if(cards) { %>
-          <% cards.forEach(card => { %>
-            <img src="<%= card.img %>">
-            <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
-              <input type="text" name="name" value="<%= card.name %>">
-              <input type="text" name="type" value="<%= card.type %>">
-              <input type="text" name="class" value="<%= card.class %>">
-              <input type="text" name="cost" value="<%= card.cost %>">
-              <input type="text" name="img" value="<%= card.img %>">
-              <input type="text" name="rarity" value="<%= card.rarity %>">
-            </form>
-            <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
-            <% }) %>
-          <% } else { %>
-            <p>please select a class to display cards</p>
-          <% } %>
+    <section class='contain-container'>
+      <% if(cards) { %>
+      <% cards.forEach(card => { %>
+        <div class="img-container">
+          <img class="builderCards" src="<%= card.img %>">
+          <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">
+            <input type="text" name="name" value="<%= card.name %>">
+            <input type="text" name="type" value="<%= card.type %>">
+            <input type="text" name="class" value="<%= card.class %>">
+            <input type="text" name="cost" value="<%= card.cost %>">
+            <input type="text" name="img" value="<%= card.img %>">
+            <input type="text" name="rarity" value="<%= card.rarity %>">
+          </form>
+          <button form="<%= card.name %>" type="submit" value="submit" class="save-button">Save</button>
+        </div>
+          <% }) %>
+        <% } else { %>
+          <p>please select a class to display cards</p>
+        <% } %>
     </section>
   </main>
     <!-- <%- include ../partials/footer %> -->
