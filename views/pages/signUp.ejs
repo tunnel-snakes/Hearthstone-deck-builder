@@ -2,15 +2,14 @@
 <html lang="en">
   <%- include ../partials/head %>
 <body>
-  <form class="container" action="/signUp-submit" method="POST"> 
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    <label for="confirm-psw"><b>Confirm Password</b></label>
-    <input type="password" placeholder="Enter Password" name="confirm-psw" required>
-    <button type="submit">Sign up!</button>
-  </form>
-  <%- include ../partials/footer %>
+  <section class='logo'><img src="images/logo.png" alt=""></section>
+  <main class='main-login'>
+    <form class="container" action="/signUp-submit" method="POST"> 
+      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" placeholder="Confirm Password" name="confirm-psw" required>
+      <button class='link'type="submit">Sign up!</button>
+    </form>
+  </main>
 </body>
 </html>
