@@ -13,7 +13,7 @@
       <input type="submit">
     </form>
     <section>
-      <% if(data) {n%>
+      <% if(data) { %>
       <% data.forEach(card => { %>
         <img src="<%= card.img %>">
         <form id="<%= card.name %>" method="POST" action="/builder/cards" class="hidden">

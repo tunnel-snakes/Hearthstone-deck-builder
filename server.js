@@ -99,7 +99,7 @@ app.get('/decks', function(req, res) {
 app.post('/builder', function(req,res) {
   console.log(req.body);
   res.render('pages/builder', {
-    class: req.body.class
+    data: null
   });
 });
 
@@ -107,7 +107,7 @@ app.post('/builder', function(req,res) {
 app.post('/builder/cards', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, 1);
-    console.log('Card Saved');
+    console.log(req.body);
   } else {
     console.log(req.body);
     cards.getCardByClass(req.body.class)
