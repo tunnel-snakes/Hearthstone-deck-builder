@@ -7,12 +7,45 @@ div.creators {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(4, 25%);
+  width: 100%;
 }
 
 div.Sky {
 grid-row-start: 1;
 grid-row-end: 2;
 border: 1px solid black;
+}
+
+p.skybio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+}
+
+p.alexbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+}
+
+p.ianbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
+}
+
+p.jacobbio {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  float: right;
+  width: 50%;
 }
 
 div.Alex {
@@ -39,6 +72,7 @@ img.Sky {
 
 img.Alex {
   height: 75%;
+  float: right;
 }
 
 img.Ian {
@@ -47,11 +81,13 @@ img.Ian {
 
 img.Jacob {
   height: 75%;
+  float: right;
 }
 
-h2.person {
+h2.person:nth-child(odd) {
   font-size: 18px;
   font-weight: bold;
+
 }
 
 

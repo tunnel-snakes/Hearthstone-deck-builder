@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 const saltRounds = 10;
 
 /**Pulls in everything the const cards = in cards.js**/
