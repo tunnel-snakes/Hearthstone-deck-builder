@@ -31,4 +31,7 @@
   .active {
     background-color: #232323;
     color: #F1FAEE;
+    top: 0;
+    left: 0;
+    right: 0;
   }
