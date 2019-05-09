@@ -53,6 +53,8 @@ app.post('/signUp', (req, res) => {
   }});
 });
 
+app.use('/*', require('./cookie-auth.js'));
+
 app.get('/', function(req, res) {
   res.render('pages/login', {
     message: null
