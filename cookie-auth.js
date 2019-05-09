@@ -7,13 +7,17 @@ module.exports = function(req, res, next){
   console.log(req.cookies);
   if(Object.keys(req.cookies).length > 0 && req.cookies.hasOwnProperty('hearthstone_token')) {
     jwt.verify(req.cookies.hearthstone_token, process.env.PRIVATE_KEY, (err, decoded) => {
-      if(err) res.redirect('/');
+      if(err) {res.render('pages/login', {
+        message: 'Invalid Token'
+      });}
       else {req.userid = decoded.userid;
         next();
       }
     });
   }
   else {
-    res.redirect('/');
+    res.render('pages/login', {
+      message: 'Missing Token'
+    });
   }
 };
