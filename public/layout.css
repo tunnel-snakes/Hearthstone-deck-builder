@@ -120,7 +120,6 @@ h2.person {
 
 
 /* LAYOUT FOR BUILDER */
-
 body {
   background-image: url(/images/background.png);
   background-repeat: repeat;
@@ -160,14 +159,19 @@ div.class-select {
   margin-top: 100px;
 }
 
+.class-select form {
+  width: 200px;
+}
 div.class-select a {
-  position: relative;
-  left: 210px;
-  bottom: 44px;
+  float: right;
+  margin: -50px 50px 0 0;
+  font-size: 22px;
 }
 
 div.class-select h2 {
   margin: 10px 0px;
+  font-size: 25px;
+  width: 200px;
 }
 
 input.submit-button {
@@ -232,31 +236,50 @@ p.home {
 }
 
 footer {
-  margin: 50px 20px 20px;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  margin: 50px auto 20px;
 }
 
 .center-align {
   text-align: center;
 }
 
+h1.deck {
+  margin: 100px auto 20px;
+  font-size: 25px;
+}
+
 button.create-deck {
-  margin: 100px auto 30px;
+  margin: 10px auto 0px;
   width: 70%;
   padding: 15px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 div.user-decks {
-  margin: 15px 30px 30px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 35px 0;
 }
 
 div.user-decks a {
   text-decoration: none;
   border: 1px solid black;
-  padding: 10px;
+  padding: 16px 20px;
   color: black;
-  font-size: 20px;
+  font-size: 25px;
+  float: left;
+  margin-left: 40px;
+}
+
+div.user-decks h2 {
+  display: inline-block;
+  margin-right: 40px;
+  font-size: 24px;
+  padding-top: 17px;
 }
 
 section.hidden-toggle {
@@ -275,7 +298,6 @@ section.pop-up {
   color: white;
   margin: auto;
 }
-
 
 label.deck-naming {
   padding-top: 60px;
@@ -346,17 +368,7 @@ ul {
 }
 
 .card-list-item {
-  margin: 6px 0;
-}
-
-div.user-decks {
-  border: 1px solid black;
-  margin: 10px 40px;
-  padding: 35px;
-}
-
-div.user-decks h2 {
-  display: inline-block;
+  margin: 10px 0;
 }
 
 div.user-decks h2:nth-child(1) {
@@ -369,6 +381,7 @@ div.user-decks h2:nth-child(2) {
 
 .scooch {
   margin: 100px 40px 0;
+  font-size: 20px;
 }
 
 a.home-to-deck {
