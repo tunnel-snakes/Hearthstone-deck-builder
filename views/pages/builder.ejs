@@ -6,7 +6,7 @@
   <main>
 
   <div class="class-select">
-    <h2>Deck: <%= request.deckname %></h2>
+    <h2><b>Deck:</b>&nbsp;&nbsp;&nbsp;<%= request.deckname %> &nbsp;&nbsp;(<%= request.class %>)</h2>
     <form method="POST" action="/builder/cards/<%= deckid %>" name="select">
       <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
       <input name="deckname" type="text" value="<%= request.deckname %>" class="hidden">
@@ -21,7 +21,7 @@
         
       </select>
       
-      <input class="submit-button" type="submit">
+      <input class="submit-button" type="submit" value="Select">
     </form>
     <a href="/decks/<%= deckid %>">View Deck</a>
   </div>
@@ -46,7 +46,7 @@
         </div>
           <% }) %>
         <% } else { %>
-          <p>please select a class to display cards</p>
+          <p class="builder-message">please select a class to display cards</p>
         <% } %>
     </section>
   </main>
