@@ -32,10 +32,16 @@ app.use(express.static('./public'));
 app.get('/decks/:id', function(req, res) {
   let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
   let values = [req.params.id];
-  client.query(SQL, values).then(result => {
-    res.render('pages/deck-info', {
-      deck: result.rows,
-      deckid: req.params.id
+  client.query(SQL, values).then(result1 => {
+    console.log(result1.rows);
+    let SQL2 = `SELECT deckname FROM decks WHERE deckid=${req.params.id};`;
+    client.query(SQL2).then(result2 => {
+      console.log(result2.rows);
+      res.render('pages/deck-info', {
+        deck: result1.rows,
+        deckid: req.params.id,
+        deckname: result2.rows[0]
+      });
     });
   });
 });
@@ -130,6 +136,7 @@ app.get('/decks', function(req, res) {
   let SQL = 'SELECT * FROM decks WHERE userid=$1;';
   let values = [req.userid];
   client.query(SQL, values).then(result => {
+    console.log(result.rows);
     res.render('pages/decks', {
       decks: result.rows
     });

@@ -3,6 +3,7 @@
   <%- include ../partials/head %>
 <body>
   <%- include ../partials/nav %>
+  <h2 class="scooch">Deck: <%= deckname.deckname %></h2>
   <form method="POST" action="/builder/add/<%= deckid %>" class="add">
     <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
     <input type="submit" value="Add Cards">

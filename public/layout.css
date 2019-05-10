@@ -135,12 +135,12 @@ div.img-container {
 
 div.img-container:nth-child(odd) {
 float: left;
-margin-left: 15px;
+margin-left: 5%;
 }
 
 div.img-container:nth-child(even) {
   float: right;
-  margin-right: 15px;
+  margin-right: 5%;
 }
 
 img.builderCards {
@@ -157,7 +157,13 @@ button.save-button {
 
 div.class-select {
   margin-left: 45px;
-  margin-top: 55px;
+  margin-top: 100px;
+}
+
+div.class-select a {
+  position: relative;
+  left: 210px;
+  bottom: 44px;
 }
 
 div.class-select h2 {
@@ -180,39 +186,33 @@ h1.home {
 .main-login {
   position: fixed;
   height: 300px;
-  margin-left: 35px;
-  margin-right: 35px;
+  text-align: center;
 }
 
-.main-login input {
-  width: 83%;
+.main-login .text, .main-login .password {
+  width: 230px;
   margin: 7px;
-  float: left;
   padding: 20px;
+  border-radius: 10px;
+  border: none;
 }
 
-.input-login {
-  padding: 0 !important;
-  clear: both !important;
-  width: 100% !important;
+.link {
+  display: block;
+  width: 80px;
+  margin: 20px auto 30px;
+  padding: 10px;
+  text-align: center;
 }
 
 .logo img {
     max-width:100%;
-    height:auto;
+    height: auto;
 }
 
-.link {
-  width: 100%;
-  padding: 0;
-  margin-left: 130px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #222222;
-  background-color: #dddddd;
-  border: 1px solid grey;
+.container {
+  text-align: center;
 }
-
 .link2 {
   width: 100%;
 }
@@ -231,14 +231,13 @@ p.home {
 }
 
 footer {
-  position: absolute;
-  bottom: 20px;
-  margin-left: 45px;
+  margin: 50px 20px 20px;
 }
 
 .center-align {
   text-align: center;
 }
+
 button.create-deck {
   margin: 100px auto 30px;
   width: 70%;
@@ -248,16 +247,14 @@ button.create-deck {
 }
 
 div.user-decks {
-  width: 85%;
-  margin: 15px 20px 15px 30px;
+  margin: 15px 30px 30px;
 }
 
 div.user-decks a {
   text-decoration: none;
   border: 1px solid black;
-  padding: 5px;
+  padding: 10px;
   color: black;
-  width: 100%;
   font-size: 20px;
 }
 
@@ -267,38 +264,49 @@ section.hidden-toggle {
 
 section.pop-up {
   position: absolute;
-  width: 80%;
+  width: 85%;
   height: 50%;
-  background-color: darkgray;
+  background-color: rgb(35,35,35);
   top: 175px;
-  left: 40px;
-  right: 40px;
+  left: 7.5%;
   text-align: center;
+  border-radius: 6px;
+  color: white;
+  margin: auto;
 }
 
 
 label.deck-naming {
-  padding-top: 80px;
+  padding-top: 60px;
   padding-bottom: 20px;
 }
 
 label.deck-naming,
-input.deck-naimg {
-  width: 100%;
+input.deck-namimg {
   display: block;
+  margin: auto;
 }
 
-label.class-select,
-select.class-select {
-  width: 100%;
+form.deck-form {
+  text-align: center;
+  margin: auto;
+}
+
+label.class-select {
   display: block;
-  margin-top: 20px;
+  text-align: center;
+  margin: 20px auto 0;
+}
+select.class-select {
+  display: block;
+  text-align: center;
+  margin: 0 auto 0;
 }
 
 input.creator {
   text-align: center;
   padding: 7px;
-  margin-top: 20px;
+  margin: 15px auto 30px;
 }
 
 label.deck-naming {
@@ -320,7 +328,7 @@ select.class-select {
 }
 
 .add {
-  margin: 80px 40px 0px;
+  margin: 20px 40px 0;
 }
 
 ul {
@@ -338,4 +346,26 @@ ul {
 
 .card-list-item {
   margin: 6px 0;
+}
+
+div.user-decks {
+  border: 1px solid black;
+  margin: 10px 40px;
+  padding: 35px;
+}
+
+div.user-decks h2 {
+  display: inline-block;
+}
+
+div.user-decks h2:nth-child(1) {
+  float: left;
+}
+
+div.user-decks h2:nth-child(2) {
+  float: right;
+}
+
+.scooch {
+  margin: 100px 40px 0;
 }
