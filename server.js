@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const saltRounds = 10;
 
 /**Pulls in everything the const cards = in cards.js**/
@@ -30,7 +30,14 @@ app.use(express.static('./public'));
 /********** ROUTES **********/
 
 app.get('/decks/:id', function(req, res) {
-  res.send(req.params.id);
+  let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
+  let values = [req.params.id];
+  client.query(SQL, values).then(result => {
+    console.log(result.rows);
+    res.render('pages/deck-info', {
+      deck: result.rows
+    });
+  });
 });
 
 app.get('/signUp', function(req, res) {
@@ -62,20 +69,27 @@ app.post('/home', function(req, res) {
   let values = [req.body.uname];
   console.log(req.cookies);
   client.query(SQL, values).then(result => {
-    bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
-      if(compareResult) {
-        let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
-        console.log(token);
-        res.cookie('hearthstone_token', token);
-        //res.send(true);
-        res.render('pages/home');
-      } else {
-        res.render('pages/login', {
-          message: 'Invalid Username or Password'
-        });
-      }
-    });
-  });
+    if (result.rows.length > 0){
+      bcrypt.compare(req.body.psw, result.rows[0].password, function(err, compareResult) {
+        if(compareResult) {
+          let token = jwt.sign({userid : result.rows[0].userid}, process.env.PRIVATE_KEY);
+          console.log(token);
+          res.cookie('hearthstone_token', token);
+          res.render('pages/home');
+        }
+        else {
+          res.render('pages/login', {
+            message: 'Invalid Username or Password'
+          });
+        }
+      });
+    }
+    else {
+      res.render('pages/login', {
+        message: 'Username or Password incorrect!'
+      });
+    }
+  }).catch(console.error);
 });
 
 app.get('/', function(req, res) {
@@ -104,7 +118,7 @@ app.get('/decks', function(req, res) {
       decks: result.rows
     });
   });
-  
+
 });
 
 app.post('/builder', function(req,res) {
@@ -117,27 +131,28 @@ app.post('/builder', function(req,res) {
 
   client.query(SQL2, values2).then(result => {
     req.body.selectedClass = req.body.class;
+    console.log(result.rows[0]);
     //console.log(req.body);
     res.render('pages/builder', {
       deckid: result.rows[0].deckid,
       request: req.body,
       cards: null
     });
-    console.log(result.rows[0]);
+    
   });
 });
 
 // Deck Builder card display and save -------------------------
-app.post('/builder/cards', function(req, res) {
+app.post('/builder/cards/:id', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
-    cards.saveCard(req.body, req.deckid);
-    //console.log(req.body);
+    cards.saveCard(req.body, req.params.id);
+    console.log(req.params.id);
   } else {
-    //console.log(req.body);
+    console.log(req.body);
     cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
-          deckid: req.deckid,
+          deckid: req.params.id,
           request: req.body,
           cards: cards
         });

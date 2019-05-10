@@ -191,6 +191,12 @@ h1.home {
   padding: 20px;
 }
 
+.input-login {
+  padding: 0 !important;
+  clear: both !important;
+  width: 100% !important;
+}
+
 .logo img {
     max-width:100%;
     height:auto;
@@ -198,7 +204,17 @@ h1.home {
 
 .link {
   width: 100%;
-  margin-left: 110px;
+  padding: 0;
+  margin-left: 130px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #222222;
+  background-color: #dddddd;
+  border: 1px solid grey;
+}
+
+.link2 {
+  width: 100%;
 }
 
 h1.home{
@@ -261,6 +277,7 @@ section.pop-up {
   text-align: center;
 }
 
+
 label.deck-naming {
   padding-top: 80px;
   padding-bottom: 20px;
@@ -301,4 +318,8 @@ label.class-select {
 select.class-select {
   padding: 5px;
   font-size: 20px;
+
+ul {
+  margin: 100px 40px;
+
 }
