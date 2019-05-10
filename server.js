@@ -86,7 +86,7 @@ app.post('/home', function(req, res) {
     }
     else {
       res.render('pages/login', {
-        message: 'Username or Password incorrect!'
+        message: 'You have entered an invalid username or password.'
       });
     }
   }).catch(console.error);
