@@ -2,13 +2,35 @@
 <html lang="en">
   <%- include ../partials/head %>
 <body>
-      <%- include ../partials/nav %>
-      <ul>
-          <% deck.forEach(card => { %>
-            <li><%= `${card.name} - ${card.quantity}` %></li>
-          <% }); %>
-      </ul>
-      
+  <%- include ../partials/nav %>
+  <h2 class="scooch">Deck: <%= deckname.deckname %></h2>
+  <form method="POST" action="/builder/add/<%= deckid %>" class="add">
+    <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
+    <input type="submit" value="Add Cards">
+  </form>
+  <ul>
+    <% deck.forEach(card => { %>
+    <li class="card-list-item">
+      <%= `${card.quantity} - ${card.name}` + '  ' %>&nbsp;&nbsp;&nbsp;
+      <form method="POST" action="/remove/<%= deckid %>" class="inline float-right">
+        <input type="text" name="deckid" value="<%= deckid %>" class="hidden">
+        <input type="text" name="cardid" value="<%= card.cardid %>" class="hidden">
+        <input type="text" name="quantity" value="<%= card.quantity %>" class="hidden">
+        <input type="submit" value="remove" class="inline">
+      </form>
+    </li>
+    <% }); %>
+  </ul>
       <%- include ../partials/footer %>
+      <script>
+          function hamburgerSwitch() {
+              let toggle = document.getElementById("myLinks");
+              if (toggle.style.display === "block") {
+                toggle.style.display = "none";
+              } else {
+                toggle.style.display = "block";
+              }
+          }
+      </script>
 </body>
 </html>

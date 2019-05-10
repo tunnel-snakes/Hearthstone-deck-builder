@@ -6,8 +6,8 @@
   <main>
 
   <div class="class-select">
-    <h2>Deck: <%= request.name %></h2>
-    <form method="POST" action="/builder/cards/<%= deckid %>">
+    <h2>Deck: <%= request.deckname %></h2>
+    <form method="POST" action="/builder/cards/<%= deckid %>" name="select">
       <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
       <input name="deckName" type="text" value="<%= request.deckName %>" class="hidden">
       <input name="class" type="text" value="<%= request.class %>" class="hidden">
@@ -23,15 +23,18 @@
       
       <input class="submit-button" type="submit">
     </form>
-   </div>
+    <a href="/decks/<%= deckid %>">View Deck</a>
+  </div>
    
    
     <section class='contain-container'>
       <% if(cards) { %>
-      <% cards.forEach(card => { %>
+      <% cards.forEach(function(card) { %>
         <div class="img-container">
           <img class="builderCards" src="<%= card.img %>">
           <form id="<%= card.name %>" method="POST" action="/builder/cards/<%= deckid %>" class="hidden">
+            <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
+            <input name="deckName" type="text" value="<%= request.deckName %>" class="hidden">
             <input type="text" name="name" value="<%= card.name %>">
             <input type="text" name="type" value="<%= card.type %>">
             <input type="text" name="class" value="<%= card.class %>">
@@ -48,6 +51,18 @@
     </section>
   </main>
   <script>
+    function filterImages() {
+      let cards = document.getElementsByTagName('img');
+      console.log(cards);
+      console.log(cards.length);
+      for(let i = 0; i < cards.length; i++) {
+        if(cards[i].naturalHeight < 10) {
+          cards[i].parentNode.remove();
+        } 
+      }
+    }
+    filterImages();
+    
       function hamburgerSwitch() {
           let toggle = document.getElementById("myLinks");
           if (toggle.style.display === "block") {

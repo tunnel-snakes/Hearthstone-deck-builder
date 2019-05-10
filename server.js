@@ -32,10 +32,16 @@ app.use(express.static('./public'));
 app.get('/decks/:id', function(req, res) {
   let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
   let values = [req.params.id];
-  client.query(SQL, values).then(result => {
-    console.log(result.rows);
-    res.render('pages/deck-info', {
-      deck: result.rows
+  client.query(SQL, values).then(result1 => {
+    console.log(result1.rows);
+    let SQL2 = `SELECT deckname FROM decks WHERE deckid=${req.params.id};`;
+    client.query(SQL2).then(result2 => {
+      console.log(result2.rows);
+      res.render('pages/deck-info', {
+        deck: result1.rows,
+        deckid: req.params.id,
+        deckname: result2.rows[0]
+      });
     });
   });
 });
@@ -109,11 +115,28 @@ app.get('/home', function(req, res) {
   res.render('pages/home');
 });
 
+app.post('/remove/:id', function(req, res) {
+  if(req.body.quantity > 1) {
+    let SQL = `UPDATE deckcards SET quantity=1 WHERE deckid=${req.body.deckid} AND cardid=${req.body.cardid};`;
+
+    client.query(SQL).then(result => {
+      res.redirect(`/decks/${req.body.deckid}`);
+    });
+  } else {
+    let SQL = `DELETE FROM deckcards WHERE deckid=${req.body.deckid} AND cardid=${req.body.cardid};`;
+
+    client.query(SQL).then(result => {
+      res.redirect(`/decks/${req.body.deckid}`);
+    });
+  }
+});
+
 app.get('/decks', function(req, res) {
   //console.log(req.userid);
   let SQL = 'SELECT * FROM decks WHERE userid=$1;';
   let values = [req.userid];
   client.query(SQL, values).then(result => {
+    console.log(result.rows);
     res.render('pages/decks', {
       decks: result.rows
     });
@@ -131,14 +154,12 @@ app.post('/builder', function(req,res) {
 
   client.query(SQL2, values2).then(result => {
     req.body.selectedClass = req.body.class;
-    console.log(result.rows[0]);
     //console.log(req.body);
     res.render('pages/builder', {
       deckid: result.rows[0].deckid,
       request: req.body,
       cards: null
     });
-    
   });
 });
 
@@ -146,9 +167,16 @@ app.post('/builder', function(req,res) {
 app.post('/builder/cards/:id', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, req.params.id);
-    console.log(req.params.id);
+    cards.getCardByClass(req.body.class)
+      .then(function(cards) {
+        req.body.selectedClass = req.body.class;
+        res.render('pages/builder', {
+          deckid: req.params.id,
+          request: req.body,
+          cards: cards
+        });
+      });
   } else {
-    console.log(req.body);
     cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
@@ -157,8 +185,20 @@ app.post('/builder/cards/:id', function(req, res) {
           cards: cards
         });
       });
-    console.log('Displaying Cards');
   }
+});
+
+app.post('/builder/add/:id', function(req, res) {
+  let SQL = `SELECT class, deckname, deckid FROM decks WHERE deckid=${req.params.id};`;
+  client.query(SQL).then(result => {
+    result.rows[0].selectedClass = result.rows[0].class;
+    console.log(result.rows);
+    res.render('pages/builder', {
+      deckid: req.params.id,
+      request: result.rows[0],
+      cards: false
+    });
+  });
 });
 
 app.get('/aboutUs', function(req, res) {
