@@ -3,7 +3,10 @@
   <%- include ../partials/head %>
 <body>
   <%- include ../partials/nav %>
-  <button class="edit" id="edit">Edit Deck</button>
+  <form method="POST" action="/builder/add/<%= deckid %>" class="add">
+    <input name="deckid" type="text" value="<%= deckid %>" class="hidden">
+    <input type="submit" value="Add Cards">
+  </form>
   <ul>
     <% deck.forEach(card => { %>
     <li class="card-list-item">
