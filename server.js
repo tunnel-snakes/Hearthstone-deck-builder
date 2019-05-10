@@ -29,22 +29,6 @@ app.use(express.static('./public'));
 
 /********** ROUTES **********/
 
-app.get('/decks/:id', function(req, res) {
-  let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
-  let values = [req.params.id];
-  client.query(SQL, values).then(result1 => {
-    console.log(result1.rows);
-    let SQL2 = `SELECT deckname FROM decks WHERE deckid=${req.params.id};`;
-    client.query(SQL2).then(result2 => {
-      console.log(result2.rows);
-      res.render('pages/deck-info', {
-        deck: result1.rows,
-        deckid: req.params.id,
-        deckname: result2.rows[0]
-      });
-    });
-  });
-});
 
 app.get('/signUp', function(req, res) {
   res.render('pages/signUp.ejs');
@@ -113,6 +97,23 @@ app.use('/*', require('./cookie-auth.js')); //this also sets req.userid for all 
 
 app.get('/home', function(req, res) {
   res.render('pages/home');
+});
+
+app.get('/decks/:id', function(req, res) {
+  let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
+  let values = [req.params.id];
+  client.query(SQL, values).then(result1 => {
+    console.log(result1.rows);
+    let SQL2 = `SELECT deckname FROM decks WHERE deckid=${req.params.id};`;
+    client.query(SQL2).then(result2 => {
+      console.log(result2.rows);
+      res.render('pages/deck-info', {
+        deck: result1.rows,
+        deckid: req.params.id,
+        deckname: result2.rows[0]
+      });
+    });
+  });
 });
 
 app.post('/remove/:id', function(req, res) {
