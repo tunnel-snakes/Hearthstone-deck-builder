@@ -11,7 +11,7 @@ div.creators {
 }
 
 h2.skyperson {
-  margin-top: 50px;
+  margin-top: 70px;
   text-align: center;
   font-size: 40px;
   font-weight: bold;
@@ -35,7 +35,7 @@ p.skybio {
   float: right;
   width: 40%;
   margin-top: 75px;
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 p.alexbio {
@@ -45,7 +45,7 @@ p.alexbio {
   float: left;
   width: 40%;
   margin-top: 75px;
-  margin-left: 30px;
+  margin-left: 50px;
 }
 
 p.ianbio {
@@ -56,7 +56,7 @@ p.ianbio {
   float: right;
   width: 40%;
   margin-top: 75px;
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 p.jacobbio {
@@ -66,7 +66,7 @@ p.jacobbio {
   float: left;
   width: 40%;
   margin-top: 75px;
-  margin-left: 30px;
+  margin-left: 50px;
 }
 
 div.Alex {
@@ -86,24 +86,24 @@ div.Jacob {
 
 img.Sky {
   height: 75%;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 img.Alex {
   height: 75%;
   float: right;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 img.Ian {
   height: 75%;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 img.Jacob {
   height: 75%;
   float: right;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 h2.person {
@@ -113,7 +113,7 @@ h2.person {
   text-align: center;
   padding: 10px;
   height: 5px;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 30px;
   margin-right: 10px;
 }
