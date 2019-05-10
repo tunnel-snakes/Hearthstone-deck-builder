@@ -33,9 +33,9 @@ app.get('/decks/:id', function(req, res) {
   let SQL = `SELECT deckcards.cardid, quantity, name FROM deckcards FULL JOIN cards ON deckcards.cardid = cards.cardid WHERE deckid=$1;`;
   let values = [req.params.id];
   client.query(SQL, values).then(result => {
-    console.log(result.rows);
     res.render('pages/deck-info', {
-      deck: result.rows
+      deck: result.rows,
+      deckid: req.params.id
     });
   });
 });
@@ -109,6 +109,26 @@ app.get('/home', function(req, res) {
   res.render('pages/home');
 });
 
+app.post('/remove/:id', function(req, res) {
+  if(req.body.quantity > 1) {
+    console.log(req.body);
+    let SQL = `UPDATE deckcards SET quantity=1 WHERE deckid=${req.body.deckid} AND cardid=${req.body.cardid};`;
+
+    client.query(SQL).then(result => {
+      console.log(result);
+      res.redirect(`/decks/${req.body.deckid}`);
+    });
+  } else {
+    let SQL = `DELETE FROM deckcards WHERE deckid=${req.body.deckid} AND cardid=${req.body.cardid};`;
+
+    client.query(SQL).then(result => {
+      console.log(result);
+      res.redirect(`/decks/${req.body.deckid}`);
+    });
+  }
+  console.log(req.body);
+});
+
 app.get('/decks', function(req, res) {
   //console.log(req.userid);
   let SQL = 'SELECT * FROM decks WHERE userid=$1;';
@@ -138,7 +158,6 @@ app.post('/builder', function(req,res) {
       request: req.body,
       cards: null
     });
-    
   });
 });
 
@@ -146,9 +165,15 @@ app.post('/builder', function(req,res) {
 app.post('/builder/cards/:id', function(req, res) {
   if(req.body.hasOwnProperty('name')) {
     cards.saveCard(req.body, req.params.id);
-    console.log(req.params.id);
+    cards.getCardByClass(req.body.class)
+      .then(function(cards) {
+        res.render('pages/builder', {
+          deckid: req.params.id,
+          request: req.body,
+          cards: cards
+        });
+      });
   } else {
-    console.log(req.body);
     cards.getCardByClass(req.body.selectedClass)
       .then(function(cards) {
         res.render('pages/builder', {
@@ -157,7 +182,6 @@ app.post('/builder/cards/:id', function(req, res) {
           cards: cards
         });
       });
-    console.log('Displaying Cards');
   }
 });
 

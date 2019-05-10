@@ -318,8 +318,25 @@ label.class-select {
 select.class-select {
   padding: 5px;
   font-size: 20px;
+}
+
+button.edit {
+  margin: 80px 40px 0px;
+}
 
 ul {
-  margin: 100px 40px;
+  margin: 20px 40px;
+}
 
+.float-right {
+  float: right;
+  margin-right: 20px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.card-list-item {
+  margin: 6px 0;
 }
