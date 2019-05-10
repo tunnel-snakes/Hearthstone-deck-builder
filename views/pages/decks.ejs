@@ -6,8 +6,8 @@
 
       <button id="togglingForm" class="create-deck">Create New Deck</button>
       <% decks.forEach(deck => { %>
-        <div class="user-decks">
-          <h2><%= deck.deckname %></h2>
+        <div class="user-decks" id>
+          <a href="/decks/<%= deck.deckid %>"><%= deck.deckname %></a>
           <h2><%= deck.class %></h2>
         </div>
       <% }); %>
