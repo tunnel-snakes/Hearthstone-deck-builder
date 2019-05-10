@@ -219,15 +219,16 @@ h1.home {
 
 h1.home{
   margin-right: 45px;
-  font-size: 27px;
+  font-size: 30px;
   font-weight: bold;
 }
 
 p.home {
   margin-top: 15px;
   margin-left: 45px;
-  margin-bottom: 500px;
+  margin-bottom: 50px;
   margin-right: 45px;
+  font-size: 18px;
 }
 
 footer {
@@ -368,4 +369,9 @@ div.user-decks h2:nth-child(2) {
 
 .scooch {
   margin: 100px 40px 0;
+}
+
+a.home-to-deck {
+  margin-left: 36%;
+  font-size: 20px;
 }
