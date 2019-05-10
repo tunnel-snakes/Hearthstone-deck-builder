@@ -146,15 +146,15 @@ app.get('/decks', function(req, res) {
 
 app.post('/builder', function(req,res) {
   let SQL = 'INSERT INTO decks(deckname, class, userid) values($1,$2,$3);';
-  let values = [req.body.deckName, req.body.class, req.userid];
+  let values = [req.body.deckname, req.body.class, req.userid];
   client.query(SQL, values);
 
   let SQL2 = 'SELECT * FROM decks WHERE deckname=$1;';
-  let values2 = [req.body.deckName];
+  let values2 = [req.body.deckname];
 
   client.query(SQL2, values2).then(result => {
     req.body.selectedClass = req.body.class;
-    //console.log(req.body);
+    console.log(req.body);
     res.render('pages/builder', {
       deckid: result.rows[0].deckid,
       request: req.body,
@@ -170,6 +170,7 @@ app.post('/builder/cards/:id', function(req, res) {
     cards.getCardByClass(req.body.class)
       .then(function(cards) {
         req.body.selectedClass = req.body.class;
+        console.log(req.body);
         res.render('pages/builder', {
           deckid: req.params.id,
           request: req.body,
