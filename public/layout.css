@@ -159,6 +159,9 @@ div.class-select {
   margin-top: 100px;
 }
 
+.builder-message {
+  margin: 40px 50px;
+}
 .class-select form {
   width: 200px;
 }
