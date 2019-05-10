@@ -1,7 +1,7 @@
 .topnav {
     overflow: hidden;
-    background-color: #3f3f3f;
-    position: absolute;
+    background-color: rgba(35,35,35,90%);
+    position: fixed;
     text-align: center;
     top: 0;
     left: 0;
@@ -12,9 +12,12 @@
     display: none;
   }
   
+  .topnav #myLinks a {
+    border-bottom: 1px solid rgba(35,35,35,100%);
+  }
   .topnav a {
     color: white;
-    padding: 14px 16px;
+    padding: 25px 16px;
     text-decoration: none;
     font-size: 17px;
     display: block;
@@ -26,6 +29,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    padding: 16.5px 19px;
   }
   
   .active {

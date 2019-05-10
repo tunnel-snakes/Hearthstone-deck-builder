@@ -171,7 +171,7 @@ border-radius: 20px;
 }
 
 h1.home {
-  margin-top: 55px;
+  margin-top: 160px;
   margin-left: 45px;
   text-align: center;
 }
@@ -231,26 +231,25 @@ p.home {
 }
 
 footer {
+  position: absolute;
+  bottom: 20px;
   margin-left: 45px;
 }
 
+.center-align {
+  text-align: center;
+}
 button.create-deck {
-  margin-top: 60px;
-  width: 85%;
-  margin-left: 30px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin: 100px auto 30px;
+  width: 70%;
+  padding: 15px;
   border-radius: 10px;
+  font-size: 14px;
 }
 
 div.user-decks {
   width: 85%;
-  margin-left: 30px;
-  margin-right: 20px;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px 20px 15px 30px;
 }
 
 div.user-decks a {

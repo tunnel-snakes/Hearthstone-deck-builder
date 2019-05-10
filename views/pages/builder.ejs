@@ -28,7 +28,7 @@
    
     <section class='contain-container'>
       <% if(cards) { %>
-      <% cards.forEach(card => { %>
+      <% cards.forEach(function(card) { %>
         <div class="img-container">
           <img class="builderCards" src="<%= card.img %>">
           <form id="<%= card.name %>" method="POST" action="/builder/cards/<%= deckid %>" class="hidden">
@@ -50,6 +50,18 @@
     </section>
   </main>
   <script>
+    function filterImages() {
+      let cards = document.getElementsByTagName('img');
+      console.log(cards);
+      console.log(cards.length);
+      for(let i = 0; i < cards.length; i++) {
+        if(cards[i].naturalHeight < 10) {
+          cards[i].parentNode.remove();
+        } 
+      }
+    }
+    filterImages();
+    
       function hamburgerSwitch() {
           let toggle = document.getElementById("myLinks");
           if (toggle.style.display === "block") {
